@@ -1,0 +1,1140 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lernwerkstatt Zivilrecht – Zustandekommen von Verträgen</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#10273d; --ink2:#3c5367; --mute:#6b7f90; --line:#dbe5ec; --bg:#f4f8fa; --card:#ffffff;
+  --navy:#0f2f4a; --blue:#2563eb; --teal:#0d8a80; --green:#1f9d5c; --amber:#c27803; --red:#c2410c;
+  --s1:#2563eb; --s2:#0d8a80; --s3:#1f9d5c; --s4:#c27803;
+  --s1bg:#eaf1fe; --s2bg:#e4f5f3; --s3bg:#e7f6ee; --s4bg:#fdf3e2;
+  --radius:14px; --shadow:0 1px 2px rgba(16,39,61,.06),0 6px 20px rgba(16,39,61,.06);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:"Plus Jakarta Sans",system-ui,sans-serif;color:var(--ink);background:var(--bg);line-height:1.6;font-size:16px}
+h1,h2,h3{font-family:"Fraunces",Georgia,serif;line-height:1.2;color:var(--navy);margin:0 0 .5em}
+h1{font-size:2.1rem} h2{font-size:1.55rem;margin-top:1.6em} h3{font-size:1.18rem;margin-top:1.3em}
+p{margin:.5em 0 .9em} a{color:var(--blue)}
+code,.norm{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:.92em;background:#eef3f7;padding:.05em .35em;border-radius:5px;white-space:nowrap}
+button{font:inherit;cursor:pointer}
+/* layout */
+.app{display:grid;grid-template-columns:300px 1fr;min-height:100vh}
+.side{background:var(--navy);color:#dbe8f2;position:sticky;top:0;height:100vh;overflow-y:auto;padding:22px 16px 40px}
+.brand{display:flex;gap:12px;align-items:center;margin:0 6px 22px}
+.brand svg{flex:none}
+.brand b{font-family:"Fraunces",serif;font-size:1.12rem;color:#fff;display:block;line-height:1.15}
+.brand small{color:#9fc2d8;font-size:.78rem}
+.navgroup{margin:14px 0 4px;padding:0 8px;font-size:.72rem;letter-spacing:.09em;text-transform:uppercase;color:#86a9c0;font-weight:700}
+.navmod{border-radius:10px;margin:4px 0}
+.navmod>button{all:unset;box-sizing:border-box;display:flex;align-items:center;gap:10px;width:100%;padding:9px 10px;border-radius:10px;cursor:pointer;color:#eaf3f9;font-weight:600;font-size:.93rem}
+.navmod>button:hover,.navlink:hover{background:rgba(255,255,255,.08)}
+.navmod.active>button{background:rgba(255,255,255,.12)}
+.navmod .pct{margin-left:auto;font-size:.72rem;color:#9fd8c9;font-weight:700}
+.navmod.locked>button{color:#7f9bb0;cursor:default}
+.navsub{padding:2px 0 6px 18px;display:none}
+.navmod.open .navsub{display:block}
+.navlink{all:unset;box-sizing:border-box;display:flex;gap:8px;align-items:center;width:100%;padding:6px 10px;border-radius:8px;cursor:pointer;color:#c3d6e4;font-size:.86rem}
+.navlink.cur{color:#fff;background:rgba(45,212,191,.16)}
+.navlink .dot{width:8px;height:8px;border-radius:50%;border:1.5px solid #6f93ab;flex:none}
+.navlink.done .dot{background:#2dd4bf;border-color:#2dd4bf}
+.main{min-width:0}
+.topbar{display:none}
+.content{max-width:980px;margin:0 auto;padding:34px 40px 80px}
+.crumb{font-size:.8rem;color:var(--mute);font-weight:600;letter-spacing:.04em;text-transform:uppercase;margin-bottom:6px}
+.lead{font-size:1.08rem;color:var(--ink2)}
+/* cards & boxes */
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:20px 22px;margin:16px 0}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.grid5{display:grid;grid-template-columns:repeat(5,1fr);gap:10px}
+.box{border-radius:12px;padding:14px 16px;margin:14px 0;border-left:5px solid}
+.box.info{background:#eaf3fb;border-color:var(--blue)}
+.box.merke{background:#e6f6f0;border-color:var(--green)}
+.box.achtung{background:#fdf1e3;border-color:var(--amber)}
+.box.def{background:#f1eefb;border-color:#6d4fc2}
+.box .bt{font-weight:700;font-size:.82rem;text-transform:uppercase;letter-spacing:.06em;margin-bottom:4px;display:block}
+.box.info .bt{color:var(--blue)} .box.merke .bt{color:var(--green)} .box.achtung .bt{color:var(--amber)} .box.def .bt{color:#6d4fc2}
+.tag{display:inline-block;font-size:.74rem;font-weight:700;padding:2px 9px;border-radius:99px;background:#e8eef3;color:var(--ink2);margin:0 4px 4px 0}
+.pill-ok{background:#dcf3e6;color:#13703f}.pill-no{background:#fde4d6;color:#a3360a}
+table.t{border-collapse:collapse;width:100%;font-size:.93rem;margin:10px 0}
+table.t th,table.t td{border:1px solid var(--line);padding:8px 10px;text-align:left;vertical-align:top}
+table.t th{background:#eef4f8;color:var(--navy)}
+.hero{background:linear-gradient(120deg,#0f2f4a 0%,#0f4f6a 55%,#0d8a80 100%);color:#fff;border-radius:20px;padding:30px 32px;margin-bottom:20px;position:relative;overflow:hidden}
+.hero h1{color:#fff}.hero p{color:#d8ecf2;max-width:640px}
+.hero .hept{position:absolute;right:-30px;top:-30px;opacity:.13}
+/* steps */
+.steps4{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:16px 0}
+.st{border-radius:12px;padding:14px;border-top:6px solid}
+.st>b{display:block;font-size:.78rem;text-transform:uppercase;letter-spacing:.06em}
+.st h4{margin:.2em 0 .3em;font-family:"Fraunces",serif;font-size:1.05rem}
+.st p{font-size:.88rem;margin:0}
+.st.s1{background:var(--s1bg);border-color:var(--s1)}.st.s1>b{color:var(--s1)}
+.st.s2{background:var(--s2bg);border-color:var(--s2)}.st.s2>b{color:var(--s2)}
+.st.s3{background:var(--s3bg);border-color:var(--s3)}.st.s3>b{color:var(--s3)}
+.st.s4{background:var(--s4bg);border-color:var(--s4)}.st.s4>b{color:var(--s4)}
+.gut{border:1px solid var(--line);border-radius:12px;overflow:hidden;margin:12px 0;background:#fff}
+.gut .row{display:grid;grid-template-columns:150px 1fr;border-top:1px solid var(--line)}
+.gut .row:first-child{border-top:0}
+.gut .lab{padding:10px 12px;font-weight:700;font-size:.8rem;text-transform:uppercase;letter-spacing:.04em}
+.gut .txt{padding:10px 14px}
+.gut .r1 .lab{background:var(--s1bg);color:var(--s1)}.gut .r2 .lab{background:var(--s2bg);color:var(--s2)}
+.gut .r3 .lab{background:var(--s3bg);color:var(--s3)}.gut .r4 .lab{background:var(--s4bg);color:var(--s4)}
+.gut .ttl{background:#f3f7fa;padding:8px 14px;font-weight:700;color:var(--navy);font-size:.92rem}
+/* norm visual */
+.wenn{display:grid;grid-template-columns:1fr 60px 1fr;align-items:stretch;gap:0;margin:14px 0}
+.wenn .a,.wenn .c{border-radius:12px;padding:14px 16px}
+.wenn .a{background:var(--s1bg);border:2px solid var(--s1)}
+.wenn .c{background:var(--s3bg);border:2px solid var(--s3)}
+.wenn .b{display:flex;align-items:center;justify-content:center;font-size:1.8rem;color:var(--mute)}
+.wenn small{display:block;font-weight:700;text-transform:uppercase;font-size:.74rem;letter-spacing:.06em;color:var(--ink2)}
+/* tree skizze */
+.tree{font-size:.95rem;background:#fff;border:1px solid var(--line);border-radius:12px;padding:14px 16px}
+.tree ul{list-style:none;margin:0;padding-left:20px;border-left:2px solid #d6e3ea}
+.tree>ul{border-left:0;padding-left:0}
+.tree li{margin:4px 0;padding-left:10px;position:relative}
+.tree li:before{content:"";position:absolute;left:-20px;top:.85em;width:22px;border-top:2px solid #d6e3ea}
+.tree>ul>li:before{display:none}
+.ok{color:#13703f;font-weight:700}.no{color:#b3400b;font-weight:700}
+.tree .te{background:#f2f6f9;border-radius:6px;padding:1px 7px;font-weight:600}
+/* flow */
+.flow{display:flex;flex-wrap:wrap;gap:10px;align-items:stretch;margin:14px 0}
+.fl{flex:1 1 150px;background:#fff;border:2px solid var(--line);border-radius:12px;padding:12px;font-size:.9rem;position:relative}
+.fl b{display:block;color:var(--navy)}
+.arrow{align-self:center;font-size:1.4rem;color:var(--mute)}
+/* timeline */
+.tl{position:relative;margin:18px 0 10px;padding-left:28px}
+.tl:before{content:"";position:absolute;left:9px;top:4px;bottom:4px;width:3px;background:linear-gradient(var(--blue),var(--teal),var(--green));border-radius:3px}
+.tl .ev{position:relative;margin:0 0 16px;background:#fff;border:1px solid var(--line);border-radius:12px;padding:10px 14px}
+.tl .ev:before{content:"";position:absolute;left:-25px;top:14px;width:13px;height:13px;border-radius:50%;background:#fff;border:3px solid var(--teal)}
+.tl .d{font-weight:700;color:var(--teal);font-size:.85rem}
+/* document */
+.doc{background:#fffdf7;border:1px solid #e9e1cc;border-radius:6px;padding:26px 30px;font-family:Georgia,serif;box-shadow:0 8px 24px rgba(60,40,0,.07);font-size:.97rem;line-height:1.65}
+.doc .hd{display:flex;justify-content:space-between;font-size:.88rem;color:#5b5240;border-bottom:1px solid #e9e1cc;padding-bottom:8px;margin-bottom:12px}
+/* widgets */
+.w{margin:16px 0}
+.wcard{background:#fff;border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden}
+.whead{display:flex;align-items:center;gap:10px;padding:12px 18px;background:linear-gradient(90deg,#eef6f9,#f4fbf8);border-bottom:1px solid var(--line)}
+.whead .ic{width:30px;height:30px;border-radius:9px;display:grid;place-items:center;color:#fff;font-weight:700;font-size:.9rem;flex:none}
+.whead h4{margin:0;font-family:"Fraunces",serif;font-size:1.05rem;color:var(--navy)}
+.whead .meta{margin-left:auto;font-size:.8rem;color:var(--mute);font-weight:600}
+.wbody{padding:16px 18px}
+.q{border:1px solid var(--line);border-radius:12px;padding:14px 16px;margin:0 0 12px}
+.q .qt{font-weight:600;margin-bottom:8px}
+.q .qn{color:var(--teal);font-weight:700;margin-right:6px}
+.opt{display:flex;gap:10px;align-items:flex-start;padding:8px 10px;border:1.5px solid var(--line);border-radius:10px;margin:6px 0;cursor:pointer;background:#fff;transition:.15s}
+.opt:hover{border-color:#9cc3d6}
+.opt input{margin-top:5px}
+.opt.right{border-color:var(--green);background:#ebf8f0}
+.opt.wrong{border-color:var(--red);background:#fdeee6}
+.expl{display:none;margin-top:8px;font-size:.92rem;background:#f4f8fa;border-radius:10px;padding:10px 12px}
+.q.checked .expl{display:block}
+.btn{border:0;border-radius:10px;padding:9px 16px;font-weight:700;background:var(--navy);color:#fff;transition:.15s}
+.btn:hover{filter:brightness(1.15)}
+.btn.sec{background:#e8eff4;color:var(--navy)}
+.btn.teal{background:var(--teal)}
+.btn.sm{padding:6px 11px;font-size:.84rem}
+.btnrow{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-top:10px}
+.result{font-weight:700;padding:8px 12px;border-radius:10px}
+.result.good{background:#dcf3e6;color:#13703f}.result.mid{background:#fdf1dd;color:#8a5300}.result.bad{background:#fde4d6;color:#a3360a}
+.srow{display:grid;grid-template-columns:1fr 240px;gap:12px;align-items:center;padding:9px 0;border-top:1px dashed var(--line)}
+.srow:first-child{border-top:0}
+.srow select{font:inherit;padding:7px 9px;border-radius:9px;border:1.5px solid var(--line);background:#fff;width:100%}
+.srow.right select{border-color:var(--green);background:#ebf8f0}.srow.wrong select{border-color:var(--red);background:#fdeee6}
+.srow .fb{grid-column:1/-1;font-size:.86rem;color:var(--ink2);display:none}
+.srow.wrong .fb,.srow.right .fb{display:block}
+.cl{width:100%;border-collapse:collapse;font-size:.93rem}
+.cl td{padding:9px 8px;border-top:1px solid var(--line);vertical-align:middle}
+.cl tr:first-child td{border-top:0}
+.tri{display:flex;gap:4px}
+.tri button{border:1.5px solid var(--line);background:#fff;border-radius:8px;padding:4px 9px;font-size:.78rem;font-weight:700;color:var(--mute)}
+.tri button.on.v1{background:#dcf3e6;border-color:var(--green);color:#13703f}
+.tri button.on.v2{background:#fdf1dd;border-color:var(--amber);color:#8a5300}
+.tri button.on.v3{background:#fde4d6;border-color:var(--red);color:#a3360a}
+.prompt{border:1px solid var(--line);border-radius:12px;margin:0 0 12px;overflow:hidden}
+.prompt .ph{display:flex;gap:10px;align-items:center;padding:10px 14px;background:#f6f9fb}
+.prompt .ph b{color:var(--navy)}
+.prompt .ph .btn{margin-left:auto}
+.prompt pre{margin:0;padding:12px 14px;white-space:pre-wrap;font-family:ui-monospace,Menlo,Consolas,monospace;font-size:.82rem;line-height:1.5;color:#26394a;background:#fff;max-height:260px;overflow:auto}
+textarea.wr{width:100%;min-height:150px;font:inherit;padding:12px;border-radius:10px;border:1.5px solid var(--line);resize:vertical;background:#fcfdfe}
+details.hint summary,details.reveal summary{cursor:pointer;list-style:none}
+details.reveal summary{color:var(--teal)}
+details.reveal[open] summary .mini,details.reveal[open] .sh{display:none}
+details.hint summary::-webkit-details-marker{display:none}
+details.hint[open] .mini,details.hint[open] .sh{display:none}
+.sol{display:none;margin-top:12px}
+.sol.show{display:block}
+.readbar{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-top:34px;padding:16px 18px;background:#fff;border:1px solid var(--line);border-radius:var(--radius)}
+.readbar.done{background:#e9f7ef;border-color:#b9e3cb}
+/* dashboard */
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin:16px 0}
+.kpi{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:16px;box-shadow:var(--shadow)}
+.kpi .v{font-family:"Fraunces",serif;font-size:2rem;color:var(--navy);line-height:1}
+.kpi .l{font-size:.82rem;color:var(--mute);font-weight:600;margin-top:6px}
+.modcard{display:grid;grid-template-columns:90px 1fr auto;gap:18px;align-items:center}
+.ring{width:84px;height:84px}
+.bar{height:9px;background:#e6eef3;border-radius:9px;overflow:hidden;margin:4px 0 2px}
+.bar>i{display:block;height:100%;background:linear-gradient(90deg,var(--teal),var(--green));border-radius:9px}
+.mini{font-size:.82rem;color:var(--mute)}
+.locked-card{opacity:.6;background:repeating-linear-gradient(135deg,#fff,#fff 10px,#f5f8fa 10px,#f5f8fa 20px)}
+.goal{display:grid;grid-template-columns:1fr auto;gap:12px;align-items:center;padding:9px 0;border-top:1px solid var(--line)}
+.goal:first-child{border-top:0}
+.amp{display:flex;gap:5px}
+.amp button{width:30px;height:30px;border-radius:50%;border:2px solid var(--line);background:#fff;font-size:.7rem;font-weight:800;color:#fff}
+.amp button.r.on{background:#e4572e;border-color:#e4572e}.amp button.y.on{background:#f2b705;border-color:#f2b705}.amp button.g.on{background:#2fb36d;border-color:#2fb36d}
+.flip{perspective:900px;cursor:pointer;min-height:150px}
+.flip .in{position:relative;width:100%;height:100%;min-height:150px;transition:transform .5s;transform-style:preserve-3d}
+.flip.on .in{transform:rotateY(180deg)}
+.flip .fa,.flip .fb2{position:absolute;inset:0;backface-visibility:hidden;border-radius:12px;padding:14px;display:flex;flex-direction:column;justify-content:center}
+.flip .fa{background:#fff;border:2px solid var(--line)}
+.flip .fa b{font-family:"Fraunces",serif;font-size:1.05rem;color:var(--navy)}
+.flip .fa small{color:var(--mute);margin-top:6px}
+.flip .fb2{background:var(--navy);color:#e6f1f7;transform:rotateY(180deg);font-size:.9rem}
+.toast{position:fixed;bottom:22px;left:50%;transform:translateX(-50%) translateY(80px);background:var(--navy);color:#fff;padding:10px 18px;border-radius:12px;font-weight:600;transition:.3s;z-index:50;box-shadow:var(--shadow)}
+.toast.show{transform:translateX(-50%) translateY(0)}
+.calc{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.calc label{font-size:.84rem;font-weight:700;color:var(--ink2);display:block;margin-bottom:4px}
+.calc input,.calc select{font:inherit;width:100%;padding:8px 10px;border-radius:9px;border:1.5px solid var(--line)}
+.calcout{margin-top:14px;background:#f4f8fa;border-radius:12px;padding:12px 14px}
+.navfoot{margin-top:26px;padding:0 8px;font-size:.76rem;color:#7f9bb0}
+.pager{display:flex;justify-content:space-between;gap:10px;margin-top:16px}
+@media (max-width:900px){
+  .app{grid-template-columns:1fr}
+  .side{position:fixed;z-index:40;width:300px;transform:translateX(-100%);transition:.25s}
+  .side.open{transform:none}
+  .topbar{display:flex;align-items:center;gap:12px;padding:12px 16px;background:var(--navy);color:#fff;position:sticky;top:0;z-index:30}
+  .topbar button{background:rgba(255,255,255,.12);color:#fff;border:0;border-radius:8px;padding:6px 10px}
+  .content{padding:22px 16px 70px}
+  .grid2,.grid3,.grid4,.grid5,.steps4,.kpis,.calc{grid-template-columns:1fr}
+  .srow{grid-template-columns:1fr}
+  .wenn{grid-template-columns:1fr}.wenn .b{transform:rotate(90deg)}
+  .gut .row{grid-template-columns:1fr}
+  .modcard{grid-template-columns:1fr}
+}
+@media print{.side,.topbar,.readbar,.btnrow{display:none}.app{display:block}}
+</style>
+</head>
+<body>
+<div class="app">
+  <aside class="side" id="side">
+    <div class="brand">
+      <svg width="44" height="44" viewBox="0 0 100 100" aria-hidden="true"><polygon points="50,4 86,21 95,60 70,92 30,92 5,60 14,21" fill="#0d8a80"/><polygon points="50,18 75,30 81,57 64,79 36,79 19,57 25,30" fill="#0f2f4a"/><text x="50" y="62" text-anchor="middle" font-family="Georgia,serif" font-size="34" fill="#fff" font-weight="700">§</text></svg>
+      <div><b>Lernwerkstatt Zivilrecht</b><small>LF 4 · Verwaltungsfachangestellte</small></div>
+    </div>
+    <nav id="nav"></nav>
+    <div class="navfoot">Dein Fortschritt wird nur in diesem Browser gespeichert.<br>BBS Meppen · 1. Ausbildungsjahr</div>
+  </aside>
+  <div class="main">
+    <div class="topbar"><button onclick="document.getElementById('side').classList.toggle('open')">☰ Menü</button><b>Lernwerkstatt Zivilrecht</b></div>
+    <main class="content" id="content"></main>
+  </div>
+</div>
+<div class="toast" id="toast"></div>
+<script>
+
+/* ================= INHALTE: MODUL 0 ================= */
+const W={};
+const GOALS={};
+const STEPS_VISUAL=`<div class="steps4">
+<div class="st s1"><b>Schritt 1</b><h4>Tatbestandsmerkmal nennen</h4><p>Welches Merkmal wird geprüft? Mit <b>konkretem Bezug zum Sachverhalt</b> (wer, was, wann) und Norm – im <b>Konjunktiv</b>.</p></div>
+<div class="st s2"><b>Schritt 2</b><h4>Definition</h4><p>Was bedeutet das Merkmal? Allgemeine Definition – <b>ohne</b> den Gesetzestext abzuschreiben und noch ohne Fallbezug.</p></div>
+<div class="st s3"><b>Schritt 3</b><h4>Subsumtion</h4><p>Den Sachverhalt unter die Definition „unterordnen“: Jedes Element der Definition mit den Fakten des Falls vergleichen.</p></div>
+<div class="st s4"><b>Schritt 4</b><h4>Conclusio</h4><p>Ergebnis: Ist das Tatbestandsmerkmal erfüllt oder nicht? Jetzt im Indikativ.</p></div></div>`;
+
+const M0={id:'m0',short:'Einstieg Rechtsanwendung',icon:'⚖️',title:'Modul 0 · Einstieg: Rechtsanwendung',released:true,
+teaser:'Rechtsnormen lesen, Fälle erfassen, Obersatz formulieren und die 4-Schritt-Methode des Gutachtens',
+sections:[
+{id:'m0-s1',title:'Worum geht es? Dein Job im Fachdienst Recht',html:`
+<p class="lead">Als Verwaltungsfachangestellte/r bekommst du im Fachdienst Recht Akten mit einer Frage: <i>„Muss die Stadt zahlen?“ – „Ist der Vertrag zustande gekommen?“ – „Kann die Schule den Schlüssel verweigern?“</i> Deine Aufgabe ist es, diese Fragen <b>nachvollziehbar und rechtlich sauber</b> zu beantworten.</p>
+<div class="box info"><span class="bt">Das Ziel dieses Kurses</span>Du lernst, ein <b>juristisches Gutachten</b> zu schreiben. Ein Gutachten prüft eine offene Frage Schritt für Schritt – wie ein Navi, das jede Abzweigung begründet, bevor es das Ziel ansagt.</div>
+<h2>Der Weg vom Aktenvorgang zum Ergebnis</h2>
+<div class="flow">
+<div class="fl"><b>① Sachverhalt erfassen</b>Was ist passiert? Chronologie, Beteiligte, Daten.</div><div class="arrow">→</div>
+<div class="fl"><b>② Fallfrage & Obersatz</b>Wer will was von wem woraus?</div><div class="arrow">→</div>
+<div class="fl"><b>③ Anspruchsgrundlage</b>Welche Norm gibt das gewünschte Recht?</div><div class="arrow">→</div>
+<div class="fl"><b>④ Lösungsskizze</b>Prüfungsreihenfolge mit (+) und (–)</div><div class="arrow">→</div>
+<div class="fl"><b>⑤ Gutachten</b>Ausformulieren mit der 4-Schritt-Methode</div></div>
+<h2>Das Grundschema jeder Anspruchsprüfung</h2>
+<p>Ob jemand etwas verlangen kann, prüfst du immer in drei Stufen. Zunächst steht nur Stufe I im Mittelpunkt – vor allem die Frage, ob ein <b>wirksamer Vertrag</b> zustande gekommen ist.</p>
+<div class="grid3">
+<div class="card" style="border-top:5px solid var(--s1)"><h3 style="margin-top:0">I. Anspruch entstanden?</h3><p>Sind alle Tatbestandsmerkmale der Anspruchsgrundlage erfüllt (z. B. wirksamer Kaufvertrag)? Gibt es Gründe, die das Entstehen <b>hindern</b> (z. B. fehlende Geschäftsfähigkeit, §§ 104 ff. BGB)?</p></div>
+<div class="card" style="border-top:5px solid var(--s2)"><h3 style="margin-top:0">II. Anspruch nicht untergegangen?</h3><p>Der Anspruch darf nicht nachträglich wieder <b>erloschen</b> sein, z. B. durch Erfüllung (§ 362 BGB) oder Anfechtung (§ 142 BGB).</p></div>
+<div class="card" style="border-top:5px solid var(--s3)"><h3 style="margin-top:0">III. Anspruch durchsetzbar?</h3><p>Kann der Schuldner die Leistung <b>verweigern</b>, z. B. wegen Verjährung (§ 214 I BGB)?</p></div></div>
+<div class="box merke"><span class="bt">Merke</span>Ohne Anspruchsgrundlage keine Prüfung! Ein Anspruch ist nach <span class="norm">§ 194 I BGB</span> das Recht, von einem anderen ein Tun oder Unterlassen zu verlangen.</div>
+<div class="w" data-w="m0-flips1"></div>`},
+
+{id:'m0-s2',title:'Rechtsnormen verstehen und zitieren',html:`
+<p class="lead">Gesetze bestehen aus Rechtsnormen (Paragrafen bzw. Artikeln). Nicht jede Norm gibt dir einen Anspruch – du musst erkennen, welche Rolle eine Norm im Fall spielt.</p>
+<h2>Aufbau einer Rechtsnorm: Wenn – dann</h2>
+<p>Fast jede vollständige Rechtsnorm hat zwei Teile: den <b>Tatbestand</b> (die Voraussetzungen) und die <b>Rechtsfolge</b>.</p>
+<div class="wenn"><div class="a"><small>Tatbestand = „Wenn …“</small>sich jemand um einen Sitz im Bundestag bewirbt,<div class="mini" style="margin-top:6px">→ enthält die <b>Tatbestandsmerkmale (TBM)</b>, die du einzeln prüfst</div></div><div class="b">⟹</div><div class="c"><small>Rechtsfolge = „… dann“</small>hat er Anspruch auf den zur Vorbereitung seiner Wahl erforderlichen Urlaub.<div class="mini" style="margin-top:6px">→ Anspruch, Befugnis, Gebot oder Verbot</div></div></div>
+<p class="mini">Beispiel: Art. 48 I GG</p>
+<h3>Kumulativ oder alternativ?</h3>
+<div class="grid2"><div class="card"><b>Kumulativ („und“)</b><p>Alle TBM müssen vorliegen. Fehlt <b>ein</b> Merkmal, brichst du die Prüfung ab – die Rechtsfolge tritt nicht ein.</p><div class="tree"><ul><li>TBM 1 <span class="ok">(+)</span></li><li>TBM 2 <span class="no">(–)</span> → Abbruch</li><li><span class="no">Rechtsfolge tritt nicht ein</span></li></ul></div></div>
+<div class="card"><b>Alternativ („oder“)</b><p>Es genügt, dass <b>eine</b> der Alternativen vorliegt. Erkennbar an „oder“, Aufzählungen mit Nummern, „Alt.“ bzw. „Var.“.</p><div class="tree"><ul><li>TBM 1 <span class="no">(–)</span> oder</li><li>TBM 2 <span class="ok">(+)</span></li><li><span class="ok">Rechtsfolge tritt ein</span></li></ul></div></div></div>
+<h2>Arten von Rechtsnormen</h2>
+<table class="t"><tr><th>Art</th><th>Funktion</th><th>Beispiel</th></tr>
+<tr><td><b>Anspruchsgrundlage</b><br><span class="tag">vollständig</span></td><td>räumt einer Person das Recht ein, von einer anderen ein Tun oder Unterlassen zu verlangen – und verpflichtet diese zugleich</td><td><span class="norm">§ 433 II BGB</span> (Kaufpreis), <span class="norm">§ 535 II BGB</span> (Miete)</td></tr>
+<tr><td><b>Befugnisnorm</b> (Ermächtigungsgrundlage)<br><span class="tag">vollständig</span></td><td>erlaubt der Verwaltung, in Freiheit oder Eigentum von Bürgern einzugreifen – öffentliches Recht</td><td><span class="norm">§ 11 NPOG</span></td></tr>
+<tr><td><b>Gebots-/Verbotsnorm</b><br><span class="tag">vollständig</span></td><td>verpflichtet zu einem Handeln oder untersagt ein Verhalten</td><td><span class="norm">§ 1 II StVO</span></td></tr>
+<tr><td><b>Hilfsnorm</b><br><span class="tag">unvollständig</span></td><td>erläutert oder ergänzt andere Normen (z. B. Definitionen)</td><td><span class="norm">§ 90 BGB</span> (Sachen), <span class="norm">§ 145 BGB</span> (Antrag)</td></tr>
+<tr><td><b>Gegennorm</b><br><span class="tag">unvollständig</span></td><td>verhindert, vernichtet oder hemmt einen Anspruch (Einwendungen/Einreden)</td><td><span class="norm">§ 105 I BGB</span>, <span class="norm">§ 214 I BGB</span></td></tr>
+<tr><td><b>Verweisungsnorm</b><br><span class="tag">unvollständig</span></td><td>verweist auf andere Vorschriften, um Wiederholungen zu vermeiden</td><td><span class="norm">§ 480 BGB</span> (Tausch → Kaufrecht)</td></tr></table>
+<div class="box achtung"><span class="bt">Typischer Fehler</span>§ 145 BGB (Antrag) oder § 130 BGB (Zugang) sind <b>keine</b> Anspruchsgrundlagen! Sie helfen dir nur, ein Tatbestandsmerkmal (den Vertrag) zu prüfen.</div>
+<div class="w" data-w="m0-sort-normen"></div>
+<h2>Normen richtig zitieren</h2>
+<p>Im Gutachten zitierst du so genau wie möglich – also mit Absatz, Satz, Nummer oder Alternative. Römische Ziffern stehen für Absätze, arabische Ziffern für Sätze.</p>
+<table class="t"><tr><th>Ausführlich</th><th>Kurzform (üblich)</th></tr>
+<tr><td>§ 433 Absatz 1 Satz 1 BGB</td><td><span class="norm">§ 433 I 1 BGB</span></td></tr>
+<tr><td>§ 104 Nummer 1 BGB</td><td><span class="norm">§ 104 Nr. 1 BGB</span></td></tr>
+<tr><td>§ 146 1. Alternative BGB</td><td><span class="norm">§ 146 Alt. 1 BGB</span> (auch: Var. 1)</td></tr>
+<tr><td>§ 108 Absatz 1 BGB in Verbindung mit § 107 BGB</td><td><span class="norm">§§ 108 I, 107 BGB</span> bzw. <span class="norm">§ 108 I i. V. m. § 107 BGB</span></td></tr>
+<tr><td>Artikel 48 Absatz 1 Grundgesetz</td><td><span class="norm">Art. 48 I GG</span></td></tr></table>
+<div class="w" data-w="m0-quiz-normen"></div>`},
+
+{id:'m0-s3',title:'Den Fall erfassen: W-Fragen, Obersatz, Lösungsskizze',html:`
+<p class="lead">Bevor du prüfst, musst du verstehen, <b>was</b> eigentlich gefragt ist. Dafür nutzt du die W-Fragen. Aus ihnen entsteht der Obersatz – der erste Satz deines Gutachtens.</p>
+<h2>Die W-Fragen</h2>
+<div class="grid5">
+<div class="card" style="text-align:center"><div style="font-size:1.6rem">👤</div><b>Wer?</b><div class="mini">Anspruchsteller</div></div>
+<div class="card" style="text-align:center"><div style="font-size:1.6rem">🎯</div><b>Will was?</b><div class="mini">Anspruchsziel, z. B. Zahlung von 150 €</div></div>
+<div class="card" style="text-align:center"><div style="font-size:1.6rem">👥</div><b>Von wem?</b><div class="mini">Anspruchsgegner</div></div>
+<div class="card" style="text-align:center"><div style="font-size:1.6rem">❓</div><b>Warum?</b><div class="mini">Anlass, z. B. Mietvertrag</div></div>
+<div class="card" style="text-align:center"><div style="font-size:1.6rem">§</div><b>Woraus?</b><div class="mini">Anspruchsgrundlage</div></div></div>
+<h2>Der Obersatz</h2>
+<p>Der Obersatz fasst alle W-Fragen in einem Satz zusammen – im <b>Konjunktiv</b>, weil das Ergebnis noch offen ist.</p>
+<div class="box def"><span class="bt">Muster</span><b>[Wer]</b> könnte gegen <b>[von wem]</b> einen Anspruch auf <b>[was]</b> aus <b>[woraus/Norm]</b> haben.</div>
+<div class="card"><b>Beispiel:</b> Die Stadt Neustadt hat einem Bürger B ein gebrauchtes Dienstfahrrad für 120 € verkauft. B zahlt nicht.<br>
+<span style="color:var(--s1)">→ <i>„Die Stadt Neustadt (N) könnte gegen B einen Anspruch auf Zahlung des Kaufpreises in Höhe von 120 € aus § 433 II BGB haben.“</i></span></div>
+<div class="box achtung"><span class="bt">Achtung: Wer will was?</span>Der <b>Verkäufer</b> will den Kaufpreis → <span class="norm">§ 433 II BGB</span>. Der <b>Käufer</b> will die Sache → <span class="norm">§ 433 I 1 BGB</span>. Beim Mietvertrag will der Vermieter die Miete (<span class="norm">§ 535 II BGB</span>), der Mieter die Überlassung der Mietsache (<span class="norm">§ 535 I 1 BGB</span>).</div>
+<h2>Die Lösungsskizze</h2>
+<p>Die Lösungsskizze ist dein <b>Bauplan</b>: Stichpunkte, Normen und Teilergebnisse mit (+) für „erfüllt“ und (–) für „nicht erfüllt“. Erst danach schreibst du das Gutachten aus.</p>
+<div class="grid2"><div class="tree"><b>Lösungsskizze (Grundgerüst Kaufvertrag)</b><ul style="margin-top:8px">
+<li>N könnte gegen B Anspruch auf Zahlung von 120 € gem. § 433 II BGB haben.
+<ul><li><b>I. Anspruch entstanden?</b><ul><li>Wirksamer Kaufvertrag
+<ul><li>Antrag (§ 145 BGB) <span class="ok">(+)</span><ul><li>Abgabe <span class="ok">(+)</span></li><li>Zugang (§ 130 I 1 BGB) <span class="ok">(+)</span></li></ul></li>
+<li>Annahme (§§ 146 ff. BGB) <span class="ok">(+)</span><ul><li>Abgabe <span class="ok">(+)</span></li><li>Zugang (§ 130 I 1 BGB) <span class="ok">(+)</span></li></ul></li>
+<li><span class="te">TE: Einigung (+)</span></li></ul></li>
+<li>Wirksamkeitshindernisse? (z. B. §§ 104 ff. BGB) <span class="no">(–)</span></li></ul></li>
+<li><b>II. Anspruch nicht untergegangen?</b> <span class="ok">(+)</span></li><li><b>III. Anspruch durchsetzbar?</b> <span class="ok">(+)</span></li></ul></li>
+<li><b>Ergebnis:</b> Anspruch <span class="ok">(+)</span></li></ul></div>
+<div><div class="box info" style="margin-top:0"><span class="bt">Abkürzungen</span><b>TBM</b> = Tatbestandsmerkmal<br><b>TE</b> = Teilergebnis<br><b>RF</b> = Rechtsfolge<br><b>(+)</b> = erfüllt · <b>(–)</b> = nicht erfüllt<br><b>WE</b> = Willenserklärung<br><b>KV</b> = Kaufvertrag</div>
+<div class="box merke"><span class="bt">Lösungsskizze ≠ Gutachten</span>Die Skizze zeigt die <b>Struktur</b>, das Gutachten liefert die <b>Begründung</b> in ganzen Sätzen. Die Skizze ist deine <b>Vorbereitung</b>: Mit ihr legst du die Prüfungsreihenfolge fest, damit du im Gutachten nichts vergisst und keine Gedankensprünge machst. Deshalb wird nur das <b>Gutachten bewertet</b> – die Lösungsskizze bleibt unbewertet.</div></div></div>
+<div class="w" data-w="m0-quiz-obersatz"></div>`},
+
+{id:'m0-s4',title:'Die 4-Schritt-Methode (Subsumtionstechnik)',html:`
+<p class="lead">Das Herzstück jedes Gutachtens: Jedes Tatbestandsmerkmal prüfst du in denselben vier Schritten. Wenn du diese Technik beherrschst, kannst du jeden Fall lösen – egal ob Kaufvertrag, Mietvertrag oder verwaltungsrechtliche Fragestellungen.</p>
+${STEPS_VISUAL}
+<h2>Ein Beispiel Schritt für Schritt</h2>
+<div class="card" style="background:#f8fafb"><b>Sachverhalt:</b> Die Stadt Neustadt (N) möchte einen ausgemusterten Dienstwagen verkaufen. Am 10.03. schreibt sie dem Autohaus Krause (K): „Wir bieten Ihnen unseren Dienstwagen VW Golf, amtliches Kennzeichen NEU-S 123, zum Preis von 4.500 € an. Wir freuen uns auf Ihre Rückmeldung.“<br><b>Frage:</b> Ist das Schreiben ein Antrag?</div>
+<div class="gut"><div class="ttl">TBM: Antrag (§ 145 BGB)</div>
+<div class="row r1"><div class="lab">① TBM + Fallbezug</div><div class="txt">Das Schreiben der N vom 10.03. an K könnte ein Antrag gem. § 145 BGB sein.</div></div>
+<div class="row r2"><div class="lab">② Definition</div><div class="txt">Ein Antrag ist eine einseitige empfangsbedürftige WE, mit der eine Seite der anderen mit erkennbarem Rechtsbindungswillen den Abschluss eines Vertrages anbietet. Die WE muss hierfür die vertragswesentlichen Bestandteile enthalten (hier: Vertragspartner, Kaufsache und -preis) und so genau bestimmt sein, dass der Annehmende mit einem schlichten „Ja“ den Vertrag zustande kommen lassen kann.</div></div>
+<div class="row r3"><div class="lab">③ Subsumtion</div><div class="txt">N richtet ihr Schreiben gezielt an K und erklärt ausdrücklich: „Wir bieten Ihnen … an.“ Damit ist ihr Wille, sich rechtlich zu binden, für K erkennbar. Das Schreiben nennt die Vertragspartner (N als Verkäuferin, K als Käufer), die Kaufsache (VW Golf, Kennzeichen NEU-S 123) und den Kaufpreis (4.500 €). K müsste also nur noch mit „Ja“ antworten, damit der Kaufvertrag zustande kommt.</div></div>
+<div class="row r4"><div class="lab">④ Conclusio</div><div class="txt">Somit liegt ein Antrag der N vom 10.03. vor.</div></div></div>
+<div class="box merke"><span class="bt">So erkennst du gute Subsumtion</span>Jedes <b>Element der Definition</b> (erkennbarer Rechtsbindungswille – Vertragspartner – Kaufsache – Kaufpreis – schlichtes „Ja“ genügt) taucht in Schritt 3 wieder auf und wird mit einer <b>konkreten Tatsache</b> aus dem Sachverhalt verbunden.</div>
+<h2>Die häufigsten Fehler</h2>
+<div class="grid2">
+<div class="box achtung" style="margin:0"><span class="bt">Schritt 1</span>Nur „Fraglich ist der Antrag.“ – <b>Fallbezug fehlt</b>. Besser: „M könnte am 24.11. gem. § 145 BGB einen Antrag gemacht haben.“</div>
+<div class="box achtung" style="margin:0"><span class="bt">Schritt 2</span>Gesetzestext abgeschrieben statt definiert, oder schon Fakten aus dem Fall in die Definition gemischt.</div>
+<div class="box achtung" style="margin:0"><span class="bt">Schritt 3</span>Sachverhalt nur nacherzählt, ohne ihn mit den Elementen der Definition zu verbinden – oder ein Element vergessen.</div>
+<div class="box achtung" style="margin:0"><span class="bt">Schritt 4</span>Conclusio fehlt oder passt nicht zu Schritt 1 („… müsste zugegangen sein“ → „… ist zugegangen“).</div></div>
+<div class="w" data-w="m0-sort-steps"></div>
+<div class="w" data-w="m0-write-zugang"></div>`},
+
+{id:'m0-s5',title:'Gutachtenstil statt Urteilsstil',html:`
+<p class="lead">Im Gutachten weißt du am Anfang noch nicht, wie der Fall ausgeht – deshalb denkst du „laut“ und kommst erst am Ende zum Ergebnis. Ein Urteil (z. B. ein Gericht oder dein Vermerk an die Sekretärin) nennt dagegen zuerst das Ergebnis und begründet es danach.</p>
+<div class="grid2">
+<div class="card" style="border-top:5px solid var(--teal)"><h3 style="margin-top:0">Gutachtenstil</h3><p><b>Frage → Prüfung → Ergebnis</b></p><p><i>„Der Vertrag <b>könnte</b> wirksam sein. <b>Dazu müsste</b> M geschäftsfähig sein. … M ist 17 Jahre alt. <b>Somit</b> ist er beschränkt geschäftsfähig.“</i></p><span class="tag">Konjunktiv</span><span class="tag">„also / somit / folglich“</span><span class="tag">Ergebnis zum Schluss</span></div>
+<div class="card" style="border-top:5px solid var(--amber)"><h3 style="margin-top:0">Urteilsstil</h3><p><b>Ergebnis → Begründung</b></p><p><i>„Der Vertrag <b>ist</b> unwirksam, <b>denn</b> M ist mit 17 Jahren beschränkt geschäftsfähig und sein Vater hat die Genehmigung verweigert.“</i></p><span class="tag">Indikativ</span><span class="tag">„denn / weil / da“</span><span class="tag">Ergebnis zuerst</span></div></div>
+<h2>Formulierungshilfen</h2>
+<table class="t"><tr><th>Schritt</th><th>Formulierungen</th></tr>
+<tr><td style="color:var(--s1);font-weight:700;white-space:nowrap">① TBM nennen</td><td>„X könnte … haben.“ · „Dazu müsste …“ · „Weiterhin müsste …“ · „Ferner ist erforderlich, dass …“ · „Fraglich ist, ob …“ (<b>nur</b> bei echten Problemen)</td></tr>
+<tr><td style="color:var(--s2);font-weight:700;white-space:nowrap">② Definition</td><td>„Ein Antrag ist …“ · „Unter … versteht man …“ · „Das ist der Fall, wenn …“ · „Voraussetzung dafür ist …“</td></tr>
+<tr><td style="color:var(--s3);font-weight:700;white-space:nowrap">③ Subsumtion</td><td>„Hier …“ · „Im vorliegenden Fall …“ · „Laut Sachverhalt …“ · „M hat am … erklärt, dass …“ · „Allerdings …“</td></tr>
+<tr><td style="color:var(--s4);font-weight:700;white-space:nowrap">④ Conclusio</td><td>„Somit / Folglich / Also liegt … vor.“ · „Ein Antrag ist damit (nicht) gegeben.“</td></tr></table>
+<div class="box info"><span class="bt">Schwerpunkte setzen</span>Nicht jedes Merkmal braucht vier lange Sätze. <b>Unproblematisches</b> („M ist 17 Jahre alt“) darfst du kurz feststellen. <b>Problematisches</b> (z. B. die fehlende Zustimmung des Vaters) prüfst du ausführlich.</div>
+<div class="w" data-w="m0-sort-stil"></div>`},
+
+{id:'m0-s6',title:'Abschlusstest, Checkliste & KI-Prompts',html:`
+<p class="lead">Teste dein Wissen zur Rechtsanwendung. Ab 70 % gilt der Test als bestanden – du kannst ihn beliebig oft wiederholen. Danach schätzt du dich mit der Checkliste selbst ein.</p>
+<div class="w" data-w="m0-quiz-final"></div>
+<div class="w" data-w="m0-check"></div>
+<div class="w" data-w="m0-prompts"></div>
+<div class="box merke"><span class="bt">Nächster Schritt</span>Trage unter <a href="#ziele">Lernziele &amp; Selbsteinschätzung</a> ein, wie sicher du dich fühlst. Dann geht es weiter mit der Lernsituation <a href="#m1-s1">„Theater mit dem Vater“</a>.</div>`}
+]};
+
+W['m0-flips1']={type:'flips',title:'Grundbegriffe auf einen Blick',items:[
+{f:'Anspruch',b:'Das Recht, von einem anderen ein Tun oder Unterlassen zu verlangen (§ 194 I BGB).'},
+{f:'Anspruchsgrundlage',b:'Rechtsnorm, die einer Person einen Anspruch gegen eine andere gibt, z. B. § 433 II BGB.'},
+{f:'Tatbestandsmerkmal (TBM)',b:'Einzelne Voraussetzung im Tatbestand einer Norm, die im Gutachten geprüft wird – z. B. „wirksamer Vertrag“.'},
+{f:'Rechtsfolge',b:'Was eintritt, wenn alle TBM erfüllt sind – z. B. Pflicht zur Zahlung des Kaufpreises.'},
+{f:'Subsumtion',b:'Unterordnung des Sachverhalts unter die Definition eines Tatbestandsmerkmals.'},
+{f:'Gutachten',b:'Ergebnisoffene, schrittweise Prüfung im Konjunktiv – das Ergebnis steht am Ende.'}]};
+
+W['m0-sort-normen']={type:'sort',title:'Welche Art von Rechtsnorm ist das?',intro:'Ordne jede Norm bzw. Beschreibung der richtigen Normart zu. Tipp: Nutze die Tabelle oben.',
+cats:['Anspruchsgrundlage','Befugnisnorm','Gebots-/Verbotsnorm','Hilfsnorm','Gegennorm','Verweisungsnorm'],
+items:[
+{t:'§ 433 II BGB: „Der Käufer ist verpflichtet, dem Verkäufer den vereinbarten Kaufpreis zu zahlen …“',c:0,fb:'Der Verkäufer kann vom Käufer etwas verlangen → Anspruchsgrundlage.'},
+{t:'§ 90 BGB: „Sachen im Sinne des Gesetzes sind nur körperliche Gegenstände.“',c:3,fb:'Reine Begriffsbestimmung → Hilfsnorm.'},
+{t:'§ 105 I BGB: „Die Willenserklärung eines Geschäftsunfähigen ist nichtig.“',c:4,fb:'Verhindert, dass ein Anspruch entsteht → Gegennorm (rechtshindernde Einwendung).'},
+{t:'§ 480 BGB: Auf den Tausch finden die Vorschriften über den Kauf entsprechende Anwendung.',c:5,fb:'Schickt dich zum Kaufrecht → Verweisungsnorm.'},
+{t:'§ 11 NPOG: Die Verwaltungsbehörden und die Polizei können die notwendigen Maßnahmen treffen, um eine Gefahr abzuwehren.',c:1,fb:'Erlaubt der Behörde einen Eingriff → Befugnisnorm (Ermächtigungsgrundlage).'},
+{t:'§ 214 I BGB: Nach Eintritt der Verjährung ist der Schuldner berechtigt, die Leistung zu verweigern.',c:4,fb:'Hindert die Durchsetzung → Gegennorm (Einrede).'},
+{t:'§ 1 II StVO: Wer am Verkehr teilnimmt, hat sich so zu verhalten, dass kein anderer geschädigt … wird.',c:2,fb:'Schreibt ein Verhalten vor → Gebotsnorm.'},
+{t:'§ 535 II BGB: Der Mieter ist verpflichtet, dem Vermieter die vereinbarte Miete zu entrichten.',c:0,fb:'Der Vermieter kann die Miete verlangen → Anspruchsgrundlage.'},
+{t:'§ 145 BGB: Wer einem anderen die Schließung eines Vertrages anträgt, ist an den Antrag gebunden …',c:3,fb:'Hilft bei der Prüfung des TBM „Vertrag“ – keine Anspruchsgrundlage → Hilfsnorm.'}]};
+
+W['m0-quiz-normen']={type:'quiz',title:'Mini-Test: Normen lesen & zitieren',qs:[
+{q:'Wie lautet die korrekte Kurzzitierung von „§ 433 Absatz 1 Satz 1 BGB“?',o:['§ 433 1 I BGB','§ 433 I 1 BGB','§ 433 Abs. I S. I BGB','§ 433.1.1 BGB'],a:1,e:'Römisch = Absatz, arabisch = Satz: § 433 I 1 BGB.'},
+{q:'Ein Tatbestand ist kumulativ aufgebaut. Das zweite von drei Merkmalen liegt nicht vor. Was folgt?',o:['Du prüfst trotzdem alle Merkmale und entscheidest am Ende nach Mehrheit.','Die Prüfung wird abgebrochen – die Rechtsfolge tritt nicht ein.','Die Rechtsfolge tritt ein, weil das erste Merkmal vorliegt.','Du musst eine andere Alternative suchen.'],a:1,e:'Kumulativ heißt: alle Merkmale müssen vorliegen. Fehlt eines, tritt die Rechtsfolge nicht ein.'},
+{q:'Welche Aussage über § 130 BGB (Zugang) ist richtig?',o:['Er ist eine Anspruchsgrundlage für die Zahlung.','Er ist eine Hilfsnorm, mit der du prüfst, ob eine Willenserklärung wirksam geworden ist.','Er ist eine Befugnisnorm für Behörden.','Er ist eine Verweisungsnorm.'],a:1,e:'§ 130 BGB regelt, wann eine Willenserklärung wirksam wird – er gibt selbst keinen Anspruch.'},
+{q:'Was ist die Rechtsfolge in § 433 II BGB?',o:['Der Kaufvertrag','Der Käufer','Die Pflicht des Käufers, den Kaufpreis zu zahlen und die Sache abzunehmen','Der Verkäufer muss die Sache übergeben'],a:2,e:'Tatbestand: wirksamer Kaufvertrag. Rechtsfolge: Zahlungs- und Abnahmepflicht des Käufers.'}]};
+
+W['m0-quiz-obersatz']={type:'quiz',title:'Mini-Test: W-Fragen & Obersatz',qs:[
+{q:'Die Stadt hat Büromöbel bestellt, der Händler liefert nicht. Welche Anspruchsgrundlage passt für die Stadt?',o:['§ 433 II BGB','§ 433 I 1 BGB','§ 535 II BGB','§ 145 BGB'],a:1,e:'Die Stadt ist Käuferin und will die Ware → § 433 I 1 BGB.'},
+{q:'Welcher Obersatz ist am besten formuliert?',o:['Die Stadt hat einen Anspruch auf Zahlung.','Fraglich ist der Vertrag.','Die Stadt Neustadt (N) könnte gegen B einen Anspruch auf Zahlung des Kaufpreises i. H. v. 120 € aus § 433 II BGB haben.','B muss zahlen, denn er hat gekauft.'],a:2,e:'Der Obersatz beantwortet alle W-Fragen und steht im Konjunktiv.'},
+{q:'Warum steht der Obersatz im Konjunktiv („könnte“)?',o:['Weil es höflicher klingt.','Weil das Ergebnis zu Beginn noch offen ist.','Weil der Gesetzgeber es vorschreibt.','Weil Ansprüche nie sicher sind.'],a:1,e:'Im Gutachten wird ergebnisoffen geprüft – das Ergebnis folgt erst am Schluss.'},
+{q:'Was zeigt eine Lösungsskizze?',o:['Den ausformulierten Text für die Akte','Die Prüfungsstruktur mit Normen und Teilergebnissen (+)/(–)','Nur das Endergebnis','Den Sachverhalt in eigenen Worten'],a:1,e:'Die Skizze ist der Bauplan – ausformuliert wird im Gutachten.'}]};
+
+W['m0-sort-steps']={type:'sort',title:'Welcher Schritt ist das?',intro:'Fall: Händler H bietet der Stadt per E-Mail 20 Bürostühle für je 89 € an. Ordne jeden Satz dem passenden Schritt der 4-Schritt-Methode zu.',
+cats:['① TBM + Fallbezug','② Definition','③ Subsumtion','④ Conclusio'],
+items:[
+{t:'„Die E-Mail des H vom 03.11. könnte ein Antrag i. S. d. § 145 BGB sein.“',c:0},
+{t:'„Ein Antrag ist eine einseitige empfangsbedürftige WE, mit der eine Seite der anderen mit erkennbarem Rechtsbindungswillen den Abschluss eines Vertrages anbietet. Die WE muss hierfür die vertragswesentlichen Bestandteile enthalten (hier: Vertragspartner, Kaufsache und -preis) und so genau bestimmt sein, dass der Annehmende mit einem schlichten ‚Ja‘ den Vertrag zustande kommen lassen kann.“',c:1},
+{t:'„H benennt in der E-Mail die Vertragsparteien (H und die Stadt), die Ware (20 Bürostühle) und den Preis (89 € je Stuhl).“',c:2},
+{t:'„Die Stadt muss nur noch zustimmen; ein bloßes ‚Ja‘ genügt.“',c:2},
+{t:'„Somit liegt ein Antrag des H vor.“',c:3},
+{t:'„Darüber hinaus müsste der Antrag der Stadt gem. § 130 I 1 BGB zugegangen sein.“',c:0},
+{t:'„Das ist der Fall, wenn die WE so in den Machtbereich des Empfängers gelangt ist, dass dieser die Möglichkeit der Kenntnisnahme hat und unter normalen Umständen mit der Kenntnisnahme zu rechnen ist.“',c:1},
+{t:'„Folglich ist der Antrag am 03.11. zugegangen.“',c:3}]};
+
+W['m0-write-zugang']={type:'write',title:'Übe selbst: Die Annahme des Autohauses',
+task:'<p><b>Sachverhalt (Fortsetzung):</b> In ihrem Schreiben vom 10.03. hatte die Stadt Neustadt (N) zusätzlich erklärt: „An dieses Angebot halten wir uns bis zum 20.03. gebunden.“ Am 12.03. antwortet das Autohaus Krause (K) per E-Mail: „Vielen Dank für Ihr Angebot. Wir nehmen es an und kaufen den VW Golf, Kennzeichen NEU-S 123, zum Preis von 4.500 €.“</p><p><b>Aufgabe:</b> Prüfe in den vier Schritten, ob K den Antrag der N angenommen hat.</p>',
+hint:'Prüfe in der Subsumtion zwei Punkte ausdrücklich: Stimmt K <b>vorbehaltlos</b> zu – also ohne Änderungen oder Bedingungen? Und erfolgt die Annahme <b>innerhalb der Annahmefrist</b>?',
+sol:`<div class="gut"><div class="row r1"><div class="lab">① TBM</div><div class="txt">K könnte den Antrag der N vom 10.03. durch seine E-Mail vom 12.03. gem. §§ 147, 148 BGB angenommen haben.</div></div>
+<div class="row r2"><div class="lab">② Definition</div><div class="txt">Eine Annahme ist eine empfangsbedürftige WE, durch die ein Antrag vorbehaltlos innerhalb einer bestimmten Annahmefrist bejaht wird und damit zum Zustandekommen eines Vertrags führt.</div></div>
+<div class="row r3"><div class="lab">③ Subsumtion</div><div class="txt"><b>Vorbehaltlose Zustimmung:</b> K erklärt ausdrücklich, das Angebot anzunehmen. Er übernimmt die Kaufsache (VW Golf, Kennzeichen NEU-S 123) und den Kaufpreis (4.500 €) unverändert und knüpft seine Zustimmung weder an Änderungen noch an Bedingungen. Er bejaht den Antrag also vorbehaltlos.<br><b>Annahmefrist:</b> N hat für die Annahme eine Frist bis zum 20.03. bestimmt (§ 148 BGB). K hat seine Annahme bereits am 12.03. per E-Mail erklärt und damit deutlich vor Ablauf der Frist.</div></div>
+<div class="row r4"><div class="lab">④ Conclusio</div><div class="txt">Somit liegt eine Annahme des K vom 12.03. vor.</div></div></div>
+<div class="box info" style="font-size:.9rem;margin-bottom:0"><span class="bt">Ausblick</span>Damit die Annahme wirksam wird und der Kaufvertrag zustande kommen kann, müsste die Annahme des K der N außerdem zugegangen sein (§ 130 I 1 BGB). Wirksam wird die Annahme, wenn sie zugegangen ist. Wie man den Zugang prüft, lernst du in LS 1.</div>`};
+
+W['m0-sort-stil']={type:'sort',title:'Gutachtenstil oder Urteilsstil?',intro:'Entscheide für jeden Satz, in welchem Stil er geschrieben ist.',
+cats:['Gutachtenstil','Urteilsstil'],
+items:[
+{t:'„Die Stadt könnte einen Anspruch auf Zahlung haben.“',c:0},
+{t:'„Der Vertrag ist nichtig, weil M geschäftsunfähig ist.“',c:1},
+{t:'„Dazu müsste ein wirksamer Kaufvertrag vorliegen.“',c:0},
+{t:'„Die Annahme ist verspätet, denn die Frist lief am 08.12. ab.“',c:1},
+{t:'„Fraglich ist, ob der Vater die Genehmigung verweigert hat.“',c:0},
+{t:'„Ein Antrag liegt vor, da alle wesentlichen Vertragsbestandteile genannt sind.“',c:1}]};
+
+W['m0-quiz-final']={type:'quiz',title:'Abschlusstest Modul 0',qs:[
+{q:'Womit beginnt jede zivilrechtliche Fallprüfung?',o:['Mit der Definition des Antrags','Mit der Suche nach einer Anspruchsgrundlage und dem Obersatz','Mit dem Ergebnis','Mit der Prüfung der Verjährung'],a:1,e:'Ohne Anspruchsgrundlage keine Prüfung – sie steht im Obersatz.'},
+{q:'In welcher Reihenfolge laufen die vier Schritte des Gutachtens?',o:['Definition – TBM – Conclusio – Subsumtion','TBM – Subsumtion – Definition – Conclusio','TBM nennen – Definition – Subsumtion – Conclusio','Conclusio – TBM – Definition – Subsumtion'],a:2,e:'TBM mit Fallbezug, Definition, Subsumtion, Conclusio.'},
+{q:'Was bedeutet „Subsumtion“?',o:['Zusammenfassung des Sachverhalts','Unterordnung des Sachverhalts unter die Definition','Abschreiben des Gesetzestextes','Formulieren des Obersatzes'],a:1,e:'Sub-sumere: den konkreten Fall unter die abstrakte Definition „unterordnen“.'},
+{q:'Was gehört NICHT in Schritt 2 (Definition)?',o:['Eine allgemeine Begriffsbestimmung','Die Norm, aus der die Definition stammt','Konkrete Daten aus dem Sachverhalt, z. B. „am 24.11.“','Die einzelnen Elemente des Begriffs'],a:2,e:'Die Definition ist abstrakt. Der Fallbezug kommt in Schritt 1 und 3.'},
+{q:'Welche Formulierung passt zu Schritt 4?',o:['„Dazu müsste …“','„Ein Antrag ist …“','„Somit liegt ein Antrag vor.“','„Hier hat M erklärt …“'],a:2,e:'„Somit / folglich / also“ leiten die Conclusio ein.'},
+{q:'Wann verwendest du „Fraglich ist, ob …“?',o:['Bei jedem Merkmal','Nur bei echten Problemschwerpunkten','Nur im Obersatz','Nie'],a:1,e:'„Fraglich“ signalisiert dem Leser: Hier wird es spannend. Sonst genügt der Konjunktiv („müsste“).'},
+{q:'Was ist eine Gegennorm?',o:['Eine Norm, die einen Anspruch verhindert, vernichtet oder hemmt','Eine Norm mit einer Definition','Eine Norm, die der Polizei Eingriffe erlaubt','Die Anspruchsgrundlage des Gegners'],a:0,e:'Beispiele: § 105 I BGB (Nichtigkeit), § 214 I BGB (Verjährung).'},
+{q:'In welcher Prüfungsstufe prüfst du, ob der Vertrag wegen Minderjährigkeit unwirksam ist?',o:['I. Anspruch entstanden','II. Anspruch nicht untergegangen','III. Anspruch durchsetzbar','Gar nicht – das ist eine Formfrage'],a:0,e:'Fehlende Geschäftsfähigkeit hindert schon das Entstehen des Anspruchs.'},
+{q:'Welcher Satz ist im Urteilsstil formuliert?',o:['„M könnte einen Antrag gemacht haben.“','„Dazu müsste die Erklärung zugegangen sein.“','„Der Antrag ist zugegangen, denn der Brief lag am Morgen im Briefkasten.“','„Fraglich ist, ob M geschäftsfähig ist.“'],a:2,e:'Ergebnis zuerst, dann „denn“ – typisch Urteilsstil.'},
+{q:'Wer will was? Ein Vermieter verlangt die vereinbarte Miete. Anspruchsgrundlage?',o:['§ 535 I 1 BGB','§ 535 II BGB','§ 433 II BGB','§ 194 BGB'],a:1,e:'Die Mietzahlungspflicht des Mieters steht in § 535 II BGB.'}]};
+
+W['m0-check']={type:'check',title:'Checkliste: Bewertung eines Gutachtens',intro:'Nutze die Checkliste für dein eigenes Gutachten (z. B. die Übung zur Annahme des Autohauses) oder als Feedbackbogen für eine Partnerin / einen Partner.',
+items:['Der Obersatz beantwortet alle W-Fragen: Wer? Will was? Von wem? Warum? Woraus?',
+'Schritt 1: Jedes Tatbestandsmerkmal wird mit konkretem Bezug zum Sachverhalt genannt.',
+'Schritt 2: Die Definition ist korrekt – der Gesetzestext wird nicht einfach abgeschrieben.',
+'Schritt 3: Jedes Element der Definition wird mit Fakten aus dem Sachverhalt verglichen.',
+'Schritt 4: Jede Prüfung endet mit einer klaren Schlussfolgerung.',
+'Der Konjunktiv wird verwendet; „Fraglich ist …“ nur bei echten Problemen.',
+'Problemschwerpunkte werden ausführlich, Unproblematisches kurz geprüft.',
+'Durchgehend ist eine klare Struktur erkennbar.',
+'Normen werden exakt (Absatz, Satz, Nummer …) und einheitlich zitiert.']};
+
+W['m0-prompts']={type:'prompts',title:'Mit KI das Wissen vertiefen',items:[
+{t:'Erklär-Coach: Rechtsnormen',when:'Wenn du die Arten von Rechtsnormen noch nicht sicher unterscheiden kannst',p:`Du bist eine geduldige Lehrkraft an einer Berufsschule in Niedersachsen. Ich bin Auszubildende/r zur/zum Verwaltungsfachangestellten im 1. Ausbildungsjahr (Lernfeld 4, Zivilrecht/BGB).
+Erkläre mir den Unterschied zwischen Anspruchsgrundlagen, Hilfsnormen, Gegennormen und Verweisungsnormen in einfacher Sprache mit je einem Beispiel aus dem BGB.
+Stelle mir danach 5 Übungsfragen nacheinander – immer nur eine Frage, warte auf meine Antwort und gib mir dann kurzes Feedback, bevor du die nächste Frage stellst.`},
+{t:'Obersatz-Trainer',when:'Zum Üben der W-Fragen',p:`Du bist Trainer/in für juristische Fallbearbeitung für Verwaltungsfachangestellte (1. Ausbildungsjahr).
+Gib mir nacheinander 5 sehr kurze Alltagsfälle aus einer Kommunalverwaltung (Kaufvertrag oder Mietvertrag nach BGB). Ich formuliere jeweils den Obersatz nach dem Muster „[Wer] könnte gegen [wen] einen Anspruch auf [was] aus [Norm] haben.“
+Prüfe meinen Obersatz auf: richtige Anspruchsgrundlage (§ 433 I 1 / § 433 II / § 535 I 1 / § 535 II BGB), alle W-Fragen, Konjunktiv. Gib mir erst nach meiner Antwort die Musterlösung.`},
+{t:'Feedback zur 4-Schritt-Methode',when:'Nachdem du die Schreibübung „Die Annahme des Autohauses“ gelöst hast',p:`Du bist Lehrkraft für Zivilrecht an einer Berufsschule. Bewerte meinen Gutachtenabschnitt anhand der 4-Schritt-Methode:
+1. Tatbestandsmerkmal mit konkretem Sachverhaltsbezug nennen, 2. Definition (ohne Gesetzestext abzuschreiben), 3. Subsumtion (jedes Definitionselement mit Fakten verbinden), 4. Conclusio.
+Achte auch auf Konjunktiv/Gutachtenstil und korrekte Zitierweise (z. B. § 130 I 1 BGB).
+Gib mir zu jedem Schritt eine Rückmeldung (gelungen / verbesserungsbedürftig + konkreter Tipp). Schreibe meinen Text NICHT komplett neu.
+
+Sachverhalt: [hier einfügen]
+Mein Gutachten: [hier einfügen]`},
+{t:'Gutachten- oder Urteilsstil?',when:'Zum Festigen der Sprache',p:`Gib mir 8 Sätze aus juristischen Texten zum BGB (Vertragsschluss, Geschäftsfähigkeit). Ich entscheide jeweils, ob der Satz im Gutachtenstil oder im Urteilsstil formuliert ist, und schreibe ihn in den jeweils anderen Stil um. Gib mir nach jedem Satz Feedback und warte dann auf meine nächste Antwort.`}]};
+
+GOALS.m0=[
+{id:'g0-1',t:'erklären, was ein Anspruch ist und woran ich eine Anspruchsgrundlage erkenne.',link:'m0-s1'},
+{id:'g0-2',t:'Arten von Rechtsnormen unterscheiden (Anspruchsgrundlage, Hilfs-, Gegen-, Verweisungsnorm …).',link:'m0-s2'},
+{id:'g0-3',t:'in einer Rechtsnorm Tatbestand und Rechtsfolge erkennen und unterscheiden.',link:'m0-s2'},
+{id:'g0-4',t:'Rechtsnormen korrekt und einheitlich zitieren.',link:'m0-s2'},
+{id:'g0-5',t:'einen Sachverhalt mit den W-Fragen erfassen und einen vollständigen Obersatz formulieren.',link:'m0-s3'},
+{id:'g0-6',t:'eine Lösungsskizze mit Teilergebnissen (+)/(–) aufbauen.',link:'m0-s3'},
+{id:'g0-7',t:'die vier Schritte der Gutachtentechnik konsequent anwenden.',link:'m0-s4'},
+{id:'g0-8',t:'Gutachtenstil und Urteilsstil unterscheiden und den Konjunktiv richtig verwenden.',link:'m0-s5'}];
+
+/* ================= INHALTE: MODUL 1 – LS 1 „Theater mit dem Vater“ (Teil A) ================= */
+const M1={id:'m1',short:'LS 1 · Theater mit dem Vater',icon:'🎭',title:'Lernsituation 1 · „Theater mit dem Vater“',released:true,
+teaser:'Vertragsschluss durch Antrag und Annahme, Zugang von Willenserklärungen, Geschäftsfähigkeit Minderjähriger',
+sections:[
+{id:'m1-s1',title:'Der Auftrag: Sachverhalt erfassen',html:`
+<div class="grid2" style="align-items:start">
+<div><p class="lead">Du bist Sachbearbeiterin bzw. Sachbearbeiter im <b>Fachdienst Recht der Stadt Neustadt</b>. Deine Fachdienstleitung legt dir einen Vermerk der Schulsekretärin des Gutenberg-Gymnasiums auf den Tisch – mit der Bitte um Klärung der Rechtslage.</p>
+<table class="t"><tr><th>Deine Rolle</th><td>SB im FD Recht</td></tr><tr><th>Auftraggeber</th><td>Fachdienstleitung Recht</td></tr><tr><th>Kunde</th><td>Gutenberg-Gymnasium, Frau Schön</td></tr><tr><th>Arbeitsprodukte</th><td>① Lösungsskizze<br>② Gutachten<br>③ kurze Antwort an Frau Schön</td></tr></table>
+<div class="box achtung"><span class="bt">Bearbeitungshinweis</span>Fragen der Stellvertretung (handelt die Sekretärin bzw. der Schulleiter wirksam für die Schule?) musst du <b>nicht</b> prüfen – das kommt in LS 2.</div>
+<div class="card" style="display:flex;gap:14px;align-items:center;padding:14px 18px"><div style="font-size:1.8rem">📄</div><div style="flex:1"><b>Fallmaterial zum Herunterladen</b><div class="mini">Lernsituation „Theater mit dem Vater“ mit Vermerk der Schulsekretärin (PDF, 2 Seiten, 90 KB) – für deine Unterlagen</div></div><a class="btn teal" style="text-decoration:none;white-space:nowrap" href="material/LS1_Theater_mit_dem_Vater.pdf" target="_blank" rel="noopener">PDF öffnen ↗</a></div></div>
+<div class="doc"><div class="hd"><span>Gutenberg-Gymnasium · AZ: abc</span><span>01.12.20..</span></div>
+<b>Anmietung der Aula für das Abi-Varieté</b><br><br><b>1) Vermerk</b><br>
+Der Schüler Max Mustermann (17) war vor zwei Wochen, am 10.11.20.., bei uns im Sekretariat und hat sich in seiner Funktion als Jahrgangssprecher nach einer Mietmöglichkeit für die schulische Aula erkundigt. In dieser möchte der aktuelle Abiturjahrgang eine Varieté-Veranstaltung aufführen, deren Einnahmen die Abiturkasse aufbessern sollen, damit der Jahrgang einen unvergesslichen Abiball organisieren kann.<br><br>
+Weil ich mir unsicher war, ob ich das zusagen darf, habe ich Max mitgeteilt, dass ich ihm die Nutzung nicht zusagen kann und erst mit dem Schulleiter sprechen muss.<br><br>
+Nach Rücksprache mit der Schulleitung habe ich Max zu einem Gespräch am 24.11.20.. eingeladen und ihm hierbei den schulischen Mietvertrag vorgelegt. Max entstehen durch den Vertrag keine Kosten, er muss aber natürlich für hoffentlich nicht entstehende Schäden aufkommen. Max hat mir erklärt, dass er damit einverstanden sei, denn der Jahrgang habe ihm zugesichert, dass alle eventuellen Kosten aus der Jahrgangskasse bezahlt werden würden. Unter anderem zahlt der Jahrgang auch die Miete von 150,00 €. Nach dem kurzen Gespräch hat Max dann den Vertrag unterschrieben, der vorab schon vom Schulleiter unterzeichnet wurde.<br><br>
+Heute besuchte mich dann der Vater von Max, Hubert Mustermann, im Büro und beschwerte sich darüber, dass wir seinem Sohn einen „fiesen Knebelvertrag untergejubelt“ hätten. Ich habe ihn ausführlich über den Sachverhalt informiert. Herr Mustermann zeigte jedoch kein Verständnis und erklärte mir, dass er mit dem Vertrag nicht einverstanden sei und die Unterschrift seines Sohnes für ungültig erkläre.<br><br>
+Jetzt bin ich mir unsicher. Gilt die Unterschrift des Schülers nicht mehr? Ist der Vertrag zustande gekommen? Was sage ich Max, wenn er um den Aulaschlüssel bittet?<br><br>
+<i>Schön, Schulsekretärin</i><br><br><b>2)</b> FD Recht mit der Bitte um Klärung. <b>3)</b> Wvl. am …</div></div>
+<h2>Schritt 1: Chronologie erstellen</h2>
+<p>Bringe Ordnung in den Fall: Was ist wann passiert? Die Daten brauchst du später für deine Prüfung („M könnte <b>am 10.11.</b> …“).</p>
+<p><b>Erstelle zuerst selbst eine Chronologie</b> (Datum – Ereignis) und vergleiche dann mit der Lösung.</p>
+<details class="card reveal"><summary><b>✓ Lösung<span class="sh"> anzeigen</span></b> <span class="mini">(erst nach deiner eigenen Chronologie öffnen)</span></summary>
+<div class="tl">
+<div class="ev"><div class="d">10.11.20..</div>Max (17) erkundigt sich im Sekretariat nach einer Mietmöglichkeit für die Aula. Frau Schön sagt nichts zu – sie muss erst mit dem Schulleiter sprechen.</div>
+<div class="ev"><div class="d">vor dem 24.11.20..</div>Der Schulleiter unterschreibt den Mietvertrag (Miete 150 €, Haftung für Schäden).</div>
+<div class="ev"><div class="d">24.11.20..</div>Frau Schön legt Max den unterschriebenen Vertrag vor. Max erklärt sein Einverständnis und unterschreibt.</div>
+<div class="ev"><div class="d">01.12.20..</div>Der Vater erklärt gegenüber Frau Schön, er sei mit dem Vertrag nicht einverstanden und die Unterschrift seines Sohnes sei ungültig.</div></div>
+</details>
+<h2>Schritt 2: W-Fragen beantworten</h2>
+<div class="w" data-w="m1-flips-w"></div>
+<div class="box info"><span class="bt">Wer ist eigentlich „die Schule“?</span>Eine Schule ist selbst nicht rechtsfähig – Vertragspartner ist genau genommen der Schulträger (hier die Stadt Neustadt). Für unsere Lösung kürzen wir die Vertragspartnerin einfach mit <b>(G)</b> für Gutenberg-Gymnasium ab, Max mit <b>(M)</b>.</div>
+<div class="w" data-w="m1-write-obersatz"></div>
+<div class="w" data-w="m1-quiz-sv"></div>`},
+
+{id:'m1-s2',title:'Die Willenserklärung',html:`
+<p class="lead">Ein Vertrag – egal ob Kauf- oder Mietvertrag – kommt durch <b>zwei übereinstimmende Willenserklärungen</b> zustande: Antrag und Annahme. Deshalb musst du zuerst wissen, was eine Willenserklärung (WE) überhaupt ist.</p>
+<div class="flow" style="max-width:640px"><div class="fl" style="border-color:var(--s1)"><b>WE 1: Antrag</b>z. B. Schule legt Mietvertrag vor</div><div class="arrow">+</div><div class="fl" style="border-color:var(--s3)"><b>WE 2: Annahme</b>z. B. Max unterschreibt</div><div class="arrow">=</div><div class="fl" style="border-color:var(--navy);background:#eef4f8"><b>Vertrag</b>Einigung</div></div>
+<div class="box def"><span class="bt">Definition Willenserklärung</span>Eine Willenserklärung ist die Äußerung eines Willens, der unmittelbar auf die Herbeiführung einer Rechtsfolge gerichtet ist (z. B. einen Vertrag zu schließen oder zu kündigen).</div>
+<h2>Die Merkmale einer Willenserklärung</h2>
+<table class="t"><tr><th colspan="3" style="background:var(--s1bg)">innerer (subjektiver) Tatbestand: <i>Wille</i></th><th colspan="2" style="background:var(--s3bg)">äußerer (objektiver) Tatbestand: <i>Erklärung</i></th></tr>
+<tr><th>Handlungswille</th><th>Erklärungsbewusstsein</th><th>Geschäftswille</th><th>Rechtsbindungswille</th><th>Äußerung</th></tr>
+<tr><td>Wille, überhaupt zu handeln (sich zu äußern)</td><td>Bewusstsein, etwas rechtlich Erhebliches zu erklären</td><td>Wille, ein <b>bestimmtes</b> Rechtsgeschäft abzuschließen</td><td>für andere <b>objektiv erkennbarer</b> Wille, sich rechtlich zu binden</td><td><b>ausdrücklich</b> (mündlich, schriftlich, elektronisch) oder <b>konkludent</b> (schlüssiges Verhalten)</td></tr>
+<tr><td class="mini">fehlt z. B. bei Reflexbewegungen, im Schlaf, unter Hypnose oder bei körperlichem Zwang</td><td class="mini">fehlt z. B. bei versehentlichem Winken in einer Versteigerung</td><td class="mini">fehlt z. B. beim Verschreiben auf dem Bestellschein</td><td class="mini">fehlt z. B. bei Gefälligkeiten oder unverbindlichen Anfragen</td><td class="mini">konkludent: Ware an der Kasse aufs Band legen, Münze in den Automaten werfen</td></tr></table>
+<div class="box merke"><span class="bt">Wichtig für die Praxis</span>Ob eine Erklärung eine WE ist, beurteilt man so, wie ein objektiver Empfänger sie verstehen durfte (§§ 133, 157 BGB). Fehlt nur der <b>Geschäftswille</b> (oder unter Umständen das Erklärungsbewusstsein), liegt trotzdem eine WE vor – sie kann aber angefochten werden. Das lernst du in LS 2.</div>
+<div class="box achtung"><span class="bt">Schweigen</span>Schweigen ist grundsätzlich <b>keine</b> Willenserklärung – wer nichts sagt, stimmt also nicht zu. Ausnahmen gelten u. a. unter Kaufleuten oder wenn das Gesetz es anordnet (z. B. § 108 II 2 BGB: Schweigen gilt als Verweigerung).</div>
+<div class="w" data-w="m1-sort-we"></div>
+<div class="w" data-w="m1-qa-we"></div>`},
+
+{id:'m1-s3',title:'Abgabe und Zugang (§ 130 BGB)',html:`
+<p class="lead">Eine Willenserklärung muss die „Bühne“ betreten: Sie muss <b>abgegeben</b> werden und – wenn sie sich an jemanden richtet – dem Empfänger <b>zugehen</b>. Erst dann wird sie wirksam.</p>
+<div class="grid2">
+<div class="card" style="border-top:5px solid var(--s1)"><h3 style="margin-top:0">Abgabe</h3><p>Der Erklärende hat seinen Willen <b>endgültig und bewusst</b> geäußert und die Erklärung so in Richtung Empfänger auf den Weg gebracht, dass unter normalen Umständen mit dem Zugang zu rechnen ist.</p><p class="mini">Worte aussprechen · Brief einwerfen · E-Mail absenden · Vertrag überreichen</p></div>
+<div class="card" style="border-top:5px solid var(--s3)"><h3 style="margin-top:0">Zugang (§ 130 I 1 BGB)</h3><p>Die WE ist so in den <b>Machtbereich</b> des Empfängers gelangt, dass dieser die <b>Möglichkeit der Kenntnisnahme</b> hat und <b>unter normalen Umständen</b> mit der Kenntnisnahme zu rechnen ist.</p><p class="mini">Ob der Empfänger tatsächlich liest, ist egal!</p></div></div>
+<h2>Wann wird eine WE wirksam?</h2>
+<table class="t"><tr><th></th><th>Empfangsbedürftige WE<br><span class="mini">(richtet sich an jemanden: Antrag, Annahme, Kündigung)</span></th><th>Nicht empfangsbedürftige WE<br><span class="mini">(z. B. Testament)</span></th></tr>
+<tr><th>unter Abwesenden<br><span class="mini">(gesetzlich geregelt)</span></th><td>mit <b>Zugang</b> nach <span class="norm">§ 130 I 1 BGB</span></td><td rowspan="2">bereits mit der <b>Abgabe</b>, z. B. wenn das unterschriebene Testament fertig ist</td></tr>
+<tr><th>unter Anwesenden<br><span class="mini">(auch am Telefon, § 147 I 2 BGB)</span></th><td>Zugang <b>analog § 130 I 1 BGB</b>:<br><b>mündlich / telefonisch:</b> sobald der Empfänger sie <b>vernommen</b>, also gehört hat<br><b>schriftlich:</b> mit Übergabe des Schriftstücks (z. B. Brief, Vertrag)</td></tr></table>
+<div class="box info"><span class="bt">Gut zu wissen</span>§ 130 I 1 BGB regelt ausdrücklich nur den Zugang unter <b>Abwesenden</b>. Für Erklärungen unter <b>Anwesenden</b> wird die Vorschrift <b>analog</b> (entsprechend) angewendet.</div>
+<h3>Typische Zugangssituationen</h3>
+<div class="grid2">
+<div class="card"><b>✉️ Brief im Hausbriefkasten</b><p class="mini">Zugang, sobald üblicherweise mit der Leerung zu rechnen ist. Einwurf spätabends → Zugang am nächsten Tag.</p></div>
+<div class="card"><b>🏢 Brief / E-Mail an eine Behörde oder Firma</b><p class="mini">Während der Geschäftszeiten: sofort. Außerhalb: mit Beginn der nächsten Geschäftszeit.</p></div>
+<div class="card"><b>📞 Anrufbeantworter / Mailbox</b><p class="mini">Gilt als Erklärung unter Abwesenden – Zugang, sobald mit dem Abhören zu rechnen ist.</p></div>
+<div class="card"><b>🏖️ Urlaub des Empfängers</b><p class="mini">Grundsätzlich unbeachtlich – es zählt, wann <i>normalerweise</i> mit der Kenntnisnahme zu rechnen ist. Ausnahmen nur in Sonderfällen (Treu und Glauben, § 242 BGB).</p></div></div>
+<div class="box info"><span class="bt">Widerruf (§ 130 I 2 BGB)</span>Eine WE wird nicht wirksam, wenn dem Empfänger <b>vorher oder gleichzeitig</b> ein Widerruf zugeht. Entscheidend ist der Zugang – nicht, ob der Empfänger den Brief schon gelesen hat!</div>
+<div class="box achtung"><span class="bt">Zugangsvereitelung</span>Wer den Zugang grundlos verhindert (z. B. sich versteckt oder die Annahme eines Einschreibens verweigert), muss sich nach Treu und Glauben (§ 242 BGB) so behandeln lassen, als sei die Erklärung rechtzeitig zugegangen.</div>
+<div class="w" data-w="m1-quiz-zugang"></div>
+<div class="w" data-w="m1-qa-zugang"></div>`},
+
+{id:'m1-s4',title:'Antrag und Annahme (§§ 145 ff. BGB)',html:`
+<p class="lead">Jetzt wird es konkret: Wann liegt ein Antrag vor? Wie lange kann er angenommen werden? Und was passiert, wenn die Annahme zu spät kommt oder etwas ändert?</p>
+<div class="grid2">
+<div class="box def" style="margin:0"><span class="bt">Definition Antrag (§ 145 BGB)</span>Ein Antrag ist eine einseitige empfangsbedürftige WE, mit der eine Seite der anderen mit erkennbarem Rechtsbindungswillen den Abschluss eines Vertrages anbietet. Die WE muss hierfür die <b>vertragswesentlichen Bestandteile</b> enthalten (hier: beim Kaufvertrag: Vertragspartner, Kaufsache und -preis) und so genau bestimmt sein, dass der Annehmende mit einem schlichten „Ja“ den Vertrag zustande kommen lassen kann.</div>
+<div class="box def" style="margin:0"><span class="bt">Definition Annahme (§§ 146 ff. BGB)</span>Eine Annahme ist eine empfangsbedürftige WE, durch die ein Antrag <b>vorbehaltlos</b> innerhalb einer bestimmten <b>Annahmefrist</b> bejaht wird und damit zum Zustandekommen eines Vertrags führt.</div></div>
+<h3>Die wesentlichen Vertragsbestandteile</h3>
+<div class="grid3"><div class="card" style="text-align:center"><div style="font-size:1.5rem">👥</div><b>Vertragspartner</b><div class="mini">Wer mit wem?</div></div><div class="card" style="text-align:center"><div style="font-size:1.5rem">📦</div><b>Leistung</b><div class="mini">Kaufsache / Mietsache, Menge</div></div><div class="card" style="text-align:center"><div style="font-size:1.5rem">💶</div><b>Gegenleistung</b><div class="mini">Kaufpreis / Miete</div></div></div>
+<h2>Kein Antrag: die „invitatio ad offerendum“</h2>
+<p>Werbeprospekte, Kataloge, Schaufensterauslagen, Speisekarten oder Produktseiten im Online-Shop sind <b>keine Anträge</b>, sondern nur eine <b>Aufforderung, selbst einen Antrag abzugeben</b> (lat. invitatio ad offerendum). Sie richten sich an unbestimmt viele Personen – der Händler will sich nicht gegenüber jedem binden, denn sein Vorrat ist begrenzt. Der <b>Antrag kommt vom Kunden</b> (z. B. durch die Bestellung).</p>
+<h2>Die Annahmefrist</h2>
+<table class="t"><tr><th>Situation</th><th>Annahme möglich …</th><th>Norm</th></tr>
+<tr><td>Antrag unter Anwesenden (auch telefonisch)</td><td>nur <b>sofort</b> – also solange das Gespräch bzw. das Telefonat andauert</td><td><span class="norm">§ 147 I BGB</span></td></tr>
+<tr><td>Antrag unter Abwesenden (Brief, E-Mail)</td><td>bis zu dem Zeitpunkt, zu dem der Antragende den Eingang der Antwort unter <b>regelmäßigen Umständen</b> erwarten darf (Postlauf hin + Überlegungszeit + Postlauf zurück)</td><td><span class="norm">§ 147 II BGB</span></td></tr>
+<tr><td>Antragender setzt eine Frist („gültig bis 08.12.“)</td><td>nur <b>innerhalb der Frist</b></td><td><span class="norm">§ 148 BGB</span></td></tr></table>
+<h2>Sonderfälle – das Entscheidungsdiagramm</h2>
+<div class="card"><svg viewBox="0 0 860 404" width="100%" role="img" aria-label="Entscheidungsbaum zur Annahme" style="font-family:Plus Jakarta Sans,sans-serif">
+<defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0L10,5L0,10z" fill="#6b7f90"/></marker></defs><g font-size="13"><rect x="320" y="10" width="220" height="40" rx="10" fill="#eaf1fe" stroke="#2563eb" stroke-width="2"/><text x="430.0" y="35.0" text-anchor="middle" fill="#10273d" font-weight="700">Antrag liegt vor (§ 145 BGB)</text><line x1="430" y1="50" x2="430" y2="78" stroke="#6b7f90" stroke-width="2" marker-end="url(#ah)"/><rect x="260" y="80" width="340" height="44" rx="10" fill="#fff" stroke="#6b7f90" stroke-width="2"/><text x="430.0" y="107.0" text-anchor="middle" fill="#10273d">Stimmt die Antwort dem Antrag <tspan font-weight="700">vorbehaltlos</tspan> zu?</text><line x1="260" y1="102" x2="182" y2="102" stroke="#6b7f90" stroke-width="2" marker-end="url(#ah)"/><text x="221" y="94" text-anchor="middle" fill="#c2410c" font-weight="700">nein</text><rect x="10" y="72" width="170" height="62" rx="10" fill="#fde4d6" stroke="#c2410c" stroke-width="2"/><text x="95.0" y="90.0" text-anchor="middle" fill="#10273d" font-weight="700">Annahme (–)</text><text x="95.0" y="108.0" text-anchor="middle" fill="#8a2c08">Ablehnung mit Änderung =</text><text x="95.0" y="126.0" text-anchor="middle" fill="#8a2c08">neuer Antrag (§ 150 II BGB)</text><line x1="430" y1="124" x2="430" y2="158" stroke="#6b7f90" stroke-width="2" marker-end="url(#ah)"/><text x="445" y="146" text-anchor="middle" fill="#13703f" font-weight="700">ja</text><rect x="240" y="160" width="380" height="44" rx="10" fill="#fff" stroke="#6b7f90" stroke-width="2"/><text x="430.0" y="187.0" text-anchor="middle" fill="#10273d">Annahme <tspan font-weight="700">innerhalb der Annahmefrist</tspan> zugegangen?</text><line x1="620" y1="182" x2="678" y2="182" stroke="#6b7f90" stroke-width="2" marker-end="url(#ah)"/><text x="649" y="174" text-anchor="middle" fill="#13703f" font-weight="700">ja</text><rect x="680" y="152" width="170" height="62" rx="10" fill="#e7f6ee" stroke="#1f9d5c" stroke-width="2"/><text x="765.0" y="170.0" text-anchor="middle" fill="#10273d" font-weight="700">Annahme (+) → KV (+)</text><text x="765.0" y="188.0" text-anchor="middle" fill="#13703f">Einigung durch Antrag</text><text x="765.0" y="206.0" text-anchor="middle" fill="#13703f">und Annahme</text><line x1="430" y1="204" x2="430" y2="238" stroke="#6b7f90" stroke-width="2" marker-end="url(#ah)"/><text x="448" y="226" text-anchor="middle" fill="#c2410c" font-weight="700">nein</text><rect x="230" y="240" width="400" height="58" rx="10" fill="#fff" stroke="#6b7f90" stroke-width="2"/><text x="430.0" y="265.0" text-anchor="middle" fill="#10273d">Rechtzeitig abgeschickt, Transport ungewöhnlich</text><text x="430.0" y="283.0" text-anchor="middle" fill="#10273d">langsam – für den Antragenden <tspan font-weight="700">erkennbar</tspan>? (§ 149 S. 1)</text><line x1="230" y1="269" x2="182" y2="269" stroke="#6b7f90" stroke-width="2" marker-end="url(#ah)"/><text x="206" y="261" text-anchor="middle" fill="#c2410c" font-weight="700">nein</text><rect x="10" y="238" width="170" height="62" rx="10" fill="#fde4d6" stroke="#c2410c" stroke-width="2"/><text x="95.0" y="256.0" text-anchor="middle" fill="#10273d" font-weight="700">Annahme (–)</text><text x="95.0" y="274.0" text-anchor="middle" fill="#8a2c08">verspätete Annahme =</text><text x="95.0" y="292.0" text-anchor="middle" fill="#8a2c08">neuer Antrag (§ 150 I BGB)</text><line x1="430" y1="298" x2="430" y2="332" stroke="#6b7f90" stroke-width="2" marker-end="url(#ah)"/><text x="445" y="320" text-anchor="middle" fill="#13703f" font-weight="700">ja</text><rect x="230" y="334" width="400" height="58" rx="10" fill="#e4f5f3" stroke="#0d8a80" stroke-width="2"/><text x="430.0" y="359.0" text-anchor="middle" fill="#10273d">Hat der Antragende die Verspätung</text><text x="430.0" y="377.0" text-anchor="middle" fill="#10273d"><tspan font-weight="700">unverzüglich angezeigt</tspan>? (§ 149 S. 2)</text><line x1="230" y1="363" x2="182" y2="363" stroke="#6b7f90" stroke-width="2" marker-end="url(#ah)"/><text x="206" y="355" text-anchor="middle" fill="#c2410c" font-weight="700">ja</text><rect x="10" y="332" width="170" height="62" rx="10" fill="#fde4d6" stroke="#c2410c" stroke-width="2"/><text x="95.0" y="350.0" text-anchor="middle" fill="#10273d" font-weight="700">Annahme (–)</text><text x="95.0" y="368.0" text-anchor="middle" fill="#8a2c08">verspätet; neuer Antrag</text><text x="95.0" y="386.0" text-anchor="middle" fill="#8a2c08">(§ 150 I BGB)</text><line x1="630" y1="363" x2="678" y2="363" stroke="#6b7f90" stroke-width="2" marker-end="url(#ah)"/><text x="654" y="355" text-anchor="middle" fill="#13703f" font-weight="700">nein</text><rect x="680" y="332" width="170" height="62" rx="10" fill="#e7f6ee" stroke="#1f9d5c" stroke-width="2"/><text x="765.0" y="350.0" text-anchor="middle" fill="#10273d" font-weight="700">Annahme (+) → KV (+)</text><text x="765.0" y="368.0" text-anchor="middle" fill="#13703f">gilt als nicht verspätet</text><text x="765.0" y="386.0" text-anchor="middle" fill="#13703f">(§ 149 S. 2 BGB)</text></g></svg>
+<p class="mini" style="margin:8px 0 0">Bei § 150 I und II entsteht ein <b>neuer Antrag</b>. Nimmt der andere Teil ihn an, kann doch noch ein Vertrag zustande kommen – dann prüfst du diesen neuen Antrag und seine Annahme von vorn.</p></div>
+<div class="box info"><span class="bt">Erlöschen des Antrags (§ 146 BGB)</span>Ein Antrag erlischt, wenn er <b>abgelehnt</b> (Alt. 1) oder <b>nicht rechtzeitig angenommen</b> wird (Alt. 2). Ein erloschener Antrag kann nicht mehr angenommen werden.</div>
+<div class="w" data-w="m1-quiz-aa"></div>
+<div class="w" data-w="m1-qa-aa"></div>`},
+
+{id:'m1-s5',title:'Übungsfälle zum Vertragsschluss',html:`
+<p class="lead">Bevor du die LS 1 „Theater mit dem Vater“ löst, trainierst du den Vertragsschluss an fünf Fällen aus der Stadt Neustadt. Ihr arbeitet in <b>Kleingruppen</b>: Jede Gruppe erhält einen Fall, erstellt dazu eine Lösungsskizze und formuliert anschließend das Gutachten.</p>
+<h2>So geht ihr vor</h2>
+<div class="flow">
+<div class="fl" style="border-color:var(--s1)"><b>① Fall lesen</b>Ladet euer Fallmaterial herunter und erfasst den Sachverhalt (Chronologie, W-Fragen).</div><div class="arrow">→</div>
+<div class="fl" style="border-color:var(--s2)"><b>② Lösungsskizze</b>Prüfungsreihenfolge mit Normen und Teilergebnissen (+)/(–) – die Vorbereitung fürs Gutachten.</div><div class="arrow">→</div>
+<div class="fl" style="border-color:var(--s3)"><b>③ Gutachten</b>Formuliert eure Skizze mit der 4-Schritt-Methode aus.</div><div class="arrow">→</div>
+<div class="fl" style="border-color:var(--s4)"><b>④ Einreichen</b>Ladet Lösungsskizze und Gutachten in <b>LearningView</b> hoch.</div></div>
+<div class="box info"><span class="bt">Hilfen</span>Nutzt das <a href="#m1-s4">Entscheidungsdiagramm zur Annahme</a>, die <a href="#m0-s4">4-Schritt-Methode</a> und vor dem Einreichen die <a href="#m0-s6">Checkliste zur Bewertung eines Gutachtens</a>.</div>
+<h2>Die Fälle zum Download</h2>
+<div class="grid3" style="grid-template-columns:repeat(auto-fit,minmax(160px,1fr))"><div class="card" style="margin:0;display:flex;flex-direction:column;gap:6px"><div><span class="tag">Fall A</span></div><b style="font-family:Fraunces,serif;font-size:1.08rem;color:var(--navy)">Papierstau</b><div class="mini" style="flex:1">Muss der Schreibwarenhandel „Papierstau“ der Stadt das bestellte Papier liefern?</div><a class="btn sm teal" style="text-decoration:none;text-align:center" href="material/LS1_Fall_A_Papierstau.pdf" target="_blank" rel="noopener">📄 PDF · 4 S. ↗</a></div><div class="card" style="margin:0;display:flex;flex-direction:column;gap:6px"><div><span class="tag">Fall B</span></div><b style="font-family:Fraunces,serif;font-size:1.08rem;color:var(--navy)">Das Faxgerät</b><div class="mini" style="flex:1">Ist zwischen der Stadt und Frau Klein ein Kaufvertrag über das Faxgerät zustande gekommen?</div><a class="btn sm teal" style="text-decoration:none;text-align:center" href="material/LS1_Fall_B_Faxgeraet.pdf" target="_blank" rel="noopener">📄 PDF · 1 S. ↗</a></div><div class="card" style="margin:0;display:flex;flex-direction:column;gap:6px"><div><span class="tag">Fall C</span></div><b style="font-family:Fraunces,serif;font-size:1.08rem;color:var(--navy)">Schick und Schnell</b><div class="mini" style="flex:1">Ist zwischen der Stadt und „Schick und Schnell“ ein Kaufvertrag über die Büromöbel zustande gekommen?</div><a class="btn sm teal" style="text-decoration:none;text-align:center" href="material/LS1_Fall_C_Schick_und_Schnell.pdf" target="_blank" rel="noopener">📄 PDF · 3 S. ↗</a></div><div class="card" style="margin:0;display:flex;flex-direction:column;gap:6px"><div><span class="tag">Fall D</span></div><b style="font-family:Fraunces,serif;font-size:1.08rem;color:var(--navy)">Papierstau, Teil 2</b><div class="mini" style="flex:1">Muss „Papierstau“ der Stadt das bestellte Papier nun liefern?</div><a class="btn sm teal" style="text-decoration:none;text-align:center" href="material/LS1_Fall_D_Papierstau_Teil2.pdf" target="_blank" rel="noopener">📄 PDF · 5 S. ↗</a></div><div class="card" style="margin:0;display:flex;flex-direction:column;gap:6px"><div><span class="tag">Fall E</span></div><b style="font-family:Fraunces,serif;font-size:1.08rem;color:var(--navy)">Das Gemälde</b><div class="mini" style="flex:1">Kann die Stadt von Frau Schulte die Zahlung des Kaufpreises für das Gemälde verlangen?</div><a class="btn sm teal" style="text-decoration:none;text-align:center" href="material/LS1_Fall_E_Gemaelde.pdf" target="_blank" rel="noopener">📄 PDF · 5 S. ↗</a></div></div>
+<h2>Lösungsskizzen zum Vergleich</h2>
+<p>Öffnet die Lösungsskizze zu eurem Fall erst, wenn ihr eure eigene Skizze fertig habt. Vergleicht dann Prüfungsreihenfolge, Normen und Teilergebnisse und korrigiert eure Skizze, <b>bevor</b> ihr das Gutachten schreibt.</p>
+<details class="card reveal"><summary><b>Lösungsskizze Fall A – Papierstau</b> <span class="mini">(erst nach eurer eigenen Skizze öffnen)</span></summary><p class="mini">Papierstau wirbt mit einem Flyer für Papier-Angebote. Die Stadt bestellt am 20.01. Papier zu den Flyer-Preisen. Papierstau antwortet am 25.01.: „ausverkauft“ – bietet aber anderes Papier an.</p><div class="tree"><ul><li>N könnte gegen P Anspruch auf Lieferung gem. § 433 I 1 BGB haben – wirksamer KV?<ul>
+<li>Antrag von P durch Flyer (§ 145)? Bestimmte Vertragspartei <span class="no">(–)</span>, kein Rechtsbindungswille → nur invitatio ad offerendum <span class="no">(–)</span></li>
+<li>Antrag von N am 20.01. (Bestellung) <span class="ok">(+)</span>: Parteien, Leistung, Gegenleistung, Zugang <span class="ok">(+)</span></li>
+<li>Annahme durch P am 25.01.? Kein Einverständnis – P lehnt ab <span class="no">(–)</span>, Antrag erlischt (§ 146 Alt. 1)</li>
+<li><span class="te">Einigung (–) → KV (–) → Anspruch (–)</span></li></ul></li></ul></div></details><details class="card reveal"><summary><b>Lösungsskizze Fall B – Das Faxgerät</b> <span class="mini">(erst nach eurer eigenen Skizze öffnen)</span></summary><p class="mini">Frau Klein bietet der Stadt am Telefon ein Faxgerät für 599 € an. Der Sachbearbeiter lehnt ab, ruft 20 Minuten später zurück und will doch bestellen – das Gerät ist inzwischen verkauft.</p><div class="tree"><ul><li>N könnte gegen K Anspruch auf Lieferung gem. § 433 I 1 BGB haben – wirksamer KV?<ul>
+<li>Antrag von K am Telefon (§ 145) <span class="ok">(+)</span>, Zugang <span class="ok">(+)</span></li>
+<li>Annahme im ersten Telefonat? N lehnt ab <span class="no">(–)</span> → Antrag erlischt (§ 146 Alt. 1)</li>
+<li>Annahme im zweiten Telefonat? Zustimmung (+), aber Antrag unter Anwesenden nur <b>sofort</b> annehmbar (§ 147 I 2) und bereits erloschen <span class="no">(–)</span> → Rückruf gilt als neuer Antrag (§ 150 I), den K nicht annimmt</li>
+<li><span class="te">Einigung (–) → KV (–) → Anspruch (–)</span></li></ul></li></ul></div></details><details class="card reveal"><summary><b>Lösungsskizze Fall C – Schick und Schnell</b> <span class="mini">(erst nach eurer eigenen Skizze öffnen)</span></summary><p class="mini">Ein Möbelhändler bietet der Stadt am 01.12. Tisch und Sessel an: „Dieses Angebot ist gültig bis zum 08.12.“ Die Stadt bestellt am 09.12.</p><div class="tree"><ul><li>Ist ein wirksamer KV gem. § 433 BGB zustande gekommen?<ul>
+<li>Antrag von S am 01.12. (§ 145) <span class="ok">(+)</span>, Bindung bis 08.12. (§ 148), Zugang <span class="ok">(+)</span></li>
+<li>Annahme von N am 09.12.? Zustimmung (+), aber Frist nach § 148 abgelaufen <span class="no">(–)</span></li>
+<li>Rechtsfolge: verspätete Annahme = neuer Antrag (§ 150 I) – S müsste diesen erst annehmen</li>
+<li><span class="te">Einigung (–) → KV (–)</span></li></ul></li></ul></div></details><details class="card reveal"><summary><b>Lösungsskizze Fall D – Papierstau, Teil 2</b> <span class="mini">(erst nach eurer eigenen Skizze öffnen)</span></summary><p class="mini">Wie Fall A – aber die Stadt bestellt am 29.01. das neu angebotene Umweltpapier zu den genannten Konditionen.</p><div class="tree"><ul><li>N könnte gegen P Anspruch auf Lieferung gem. § 433 I 1 BGB haben – wirksamer KV?<ul>
+<li>Flyer = invitatio <span class="no">(–)</span>; Antrag von N am 20.01. <span class="ok">(+)</span></li>
+<li>Antwort von P am 25.01.: keine uneingeschränkte Zustimmung → Ablehnung mit Änderung = <b>neuer Antrag</b> (§ 150 II) <span class="ok">(+)</span></li>
+<li>Annahme von N am 29.01. (§ 147 II): uneingeschränkt (+), rechtzeitig (+), Zugang (+) <span class="ok">(+)</span></li>
+<li><span class="te">Einigung (+) → KV (+) → Anspruch (+)</span></li></ul></li></ul></div></details><details class="card reveal"><summary><b>Lösungsskizze Fall E – Das Gemälde</b> <span class="mini">(erst nach eurer eigenen Skizze öffnen)</span></summary><p class="mini">Das Museum der Stadt bietet Frau Schulte am 23.11. ein Gemälde für 850.000 € an – Antwort bis 07.12. Frau Schulte nimmt mit Brief vom 25.11. an; der Brief kommt durch eine Verzögerung bei der Post erst am 14.12. an. Das Museum meldet sich nicht wegen der Verspätung, sondern schickt am 15.12. einen Boten. Frau Schulte will das Bild nun nicht mehr.</p><div class="tree"><ul><li>N könnte gegen S Anspruch auf Zahlung von 850.000 € gem. § 433 II BGB haben – wirksamer KV?<ul>
+<li>Antrag von N am 23.11. <span class="ok">(+)</span>, Frist bis 07.12. (§ 148)</li>
+<li>Annahme von S am 25.11.: uneingeschränkt (+); Zugang erst 14.12. → eigentlich verspätet</li>
+<li>Aber § 149 S. 1: rechtzeitig abgesandt, bei regelmäßiger Beförderung rechtzeitig, für N erkennbar (Datum 25.11.) <span class="ok">(+)</span> → N hätte die Verspätung unverzüglich anzeigen müssen; das unterbleibt → Annahme gilt als <b>nicht verspätet</b> (§ 149 S. 2)</li>
+<li><span class="te">Einigung (+) → KV (+) → Anspruch (+)</span></li></ul></li></ul></div></details>
+<h2>Kurzcheck nach der Gruppenarbeit</h2>
+<p>Wenn alle Gruppen ihre Fälle vorgestellt haben: Weißt du für jeden Fall, ob ein Vertrag zustande gekommen ist?</p>
+<div class="w" data-w="m1-sort-faelle"></div>
+<div class="w" data-w="m1-qa-kv"></div>`}
+]};
+
+/* ================= INHALTE: MODUL 1 (Teil B) ================= */
+function G(t,a,b,c,d){return `<div class="gut">${t?`<div class="ttl">${t}</div>`:''}<div class="row r1"><div class="lab">① TBM</div><div class="txt">${a}</div></div><div class="row r2"><div class="lab">② Definition</div><div class="txt">${b}</div></div><div class="row r3"><div class="lab">③ Subsumtion</div><div class="txt">${c}</div></div><div class="row r4"><div class="lab">④ Conclusio</div><div class="txt">${d}</div></div></div>`;}
+
+const GUT_VERTRAG=`<p><b>Obersatz:</b> Das Gutenberg-Gymnasium (G) könnte gegen Max Mustermann (M) einen Anspruch auf Erfüllung des Mietvertrages über die Aula, insbesondere auf Zahlung der Miete i. H. v. 150,00 €, aus § 535 II BGB haben.</p>
+<p>Dazu müsste der Anspruch entstanden sein. Das ist der Fall, wenn zwischen G und M ein wirksamer Mietvertrag zustande gekommen ist. Ein Vertrag kommt durch zwei übereinstimmende Willenserklärungen, Antrag und Annahme (§§ 145 ff. BGB), zustande.</p>
+${G('1. Antrag des M am 10.11.','M könnte am 10.11. im Sekretariat einen Antrag auf Abschluss eines Mietvertrages gem. § 145 BGB gemacht haben.','Ein Antrag ist eine einseitige empfangsbedürftige WE, mit der eine Seite der anderen mit erkennbarem Rechtsbindungswillen den Abschluss eines Vertrages anbietet. Die WE muss hierfür die vertragswesentlichen Bestandteile enthalten (hier: Vertragspartner, Mietsache und -zins) und so genau bestimmt sein, dass der Annehmende mit einem schlichten „Ja“ den Vertrag zustande kommen lassen kann.','M hat sich als Jahrgangssprecher lediglich nach einer Mietmöglichkeit für die Aula <i>erkundigt</i>. Zwar sind die Vertragsparteien (M und G) und die Mietsache (Aula) erkennbar, über die Höhe der Miete wurde jedoch nicht gesprochen. Zudem wollte M erst klären, ob eine Anmietung überhaupt möglich ist; ein Wille, sich bereits rechtlich zu binden, ist nicht erkennbar. Ein bloßes „Ja“ der Sekretärin hätte daher keinen Vertrag mit bestimmtem Inhalt entstehen lassen.','Ein Antrag des M am 10.11. liegt somit nicht vor.')}
+<div class="box info" style="font-size:.9rem"><span class="bt">Vertretbar ist auch …</span>… einen Antrag des M anzunehmen. Dann scheitert der Vertragsschluss an diesem Tag an der Annahme: Frau Schön hat nicht zugestimmt, und ein Antrag unter Anwesenden kann nur sofort angenommen werden (§ 147 I 1 BGB) – er ist erloschen (§ 146 BGB).</div>
+${G('2. Antrag des G am 24.11.','G könnte M am 24.11. durch die Vorlage des vom Schulleiter unterschriebenen Mietvertrages einen Antrag gem. § 145 BGB gemacht haben.','Ein Antrag ist – wie oben definiert – eine einseitige empfangsbedürftige WE, mit der eine Seite der anderen mit erkennbarem Rechtsbindungswillen den Abschluss eines Vertrages anbietet und die alle vertragswesentlichen Bestandteile enthält, sodass der Annehmende mit einem schlichten „Ja“ den Vertrag zustande kommen lassen kann.','Der schriftliche Mietvertrag nennt die Vertragsparteien (G und M), die Mietsache (Aula für das Abi-Varieté) und die Miete (150,00 €). Durch die Unterschrift des Schulleiters bringt G zum Ausdruck, sich rechtlich binden zu wollen. M musste nur noch unterschreiben.','Ein Antrag des G liegt somit vor.')}
+${G('3. Zugang des Antrags','Der Antrag des G müsste dem M am 24.11. zugegangen sein.','Eine WE ist zugegangen, wenn sie so in den Machtbereich des Empfängers gelangt ist, dass dieser die Möglichkeit der Kenntnisnahme hat und unter normalen Umständen mit der Kenntnisnahme zu rechnen ist. Eine schriftliche WE gegenüber einem Anwesenden geht daher mit der Übergabe zu.','Frau Schön hat M den unterschriebenen Vertrag im persönlichen Gespräch vorgelegt; M konnte ihn lesen und hat ihn unterschrieben.','Der Antrag ist M am 24.11. zugegangen.')}
+${G('4. Annahme durch M am 24.11.','M könnte den Antrag des G am 24.11. durch seine Unterschrift gem. § 147 I BGB angenommen haben.','Eine Annahme ist eine empfangsbedürftige WE, durch die ein Antrag vorbehaltlos innerhalb einer bestimmten Annahmefrist bejaht wird und damit zum Zustandekommen eines Vertrags führt. Ein Antrag unter Anwesenden kann nur sofort angenommen werden (§ 147 I 1 BGB).','M hat erklärt, mit dem Vertrag einverstanden zu sein, und ihn ohne Änderungen oder Bedingungen unterschrieben; er hat den Antrag also vorbehaltlos bejaht. Das geschah im selben Gespräch, also sofort und damit innerhalb der Annahmefrist des § 147 I 1 BGB. Da Frau Schön anwesend war, ist ihr die Annahme auch unmittelbar zugegangen.','M hat den Antrag somit rechtzeitig und wirksam angenommen.')}
+<p><b>Teilergebnis:</b> G und M haben sich durch Antrag und Annahme geeinigt. Ein Mietvertrag ist zustande gekommen.</p>`;
+
+const GUT_GF=`<p>Fraglich ist jedoch, ob der Mietvertrag auch wirksam ist, da M bei Vertragsschluss erst 17 Jahre alt war.</p>
+${G('5. Beschränkte Geschäftsfähigkeit des M','M könnte bei Vertragsschluss am 24.11. gem. § 106 BGB beschränkt geschäftsfähig gewesen sein.','Beschränkt geschäftsfähig ist ein Minderjähriger, der das siebente Lebensjahr vollendet hat (§ 106 BGB). Minderjährig ist, wer das 18. Lebensjahr noch nicht vollendet hat (§ 2 BGB).','M ist 17 Jahre alt.','M ist somit beschränkt geschäftsfähig. Für die Wirksamkeit seiner Willenserklärung gelten die §§ 107 ff. BGB.')}
+${G('6. Lediglich rechtlicher Vorteil?','Der Abschluss des Mietvertrages könnte für M lediglich rechtlich vorteilhaft sein, sodass er keine Einwilligung benötigte (§ 107 BGB).','Lediglich rechtlich vorteilhaft ist ein Rechtsgeschäft, wenn es für den Minderjährigen keine rechtlichen Pflichten begründet und seine Rechte nicht mindert. Wirtschaftliche Vorteile spielen keine Rolle.','Durch den Mietvertrag wird M selbst verpflichtet, die Miete von 150,00 € zu zahlen und für Schäden an der Aula zu haften. Dass der Jahrgang die Kosten intern übernehmen will, ändert nichts daran, dass M gegenüber G der Schuldner ist. Auch die Aussage, M „entstünden keine Kosten“, ist daher rechtlich unerheblich.','Der Vertrag ist für M nicht lediglich rechtlich vorteilhaft. Er benötigt die Einwilligung seines gesetzlichen Vertreters.')}
+${G('7. Einwilligung der Eltern','Die Eltern des M als gesetzliche Vertreter (§ 1629 I BGB) müssten vor dem Vertragsschluss am 24.11. eingewilligt haben (§§ 107, 183 BGB).','Eine Einwilligung ist die vorherige Zustimmung (§ 183 S. 1 BGB). Sie kann ausdrücklich oder durch schlüssiges Verhalten erteilt werden. Ein gesetzlich geregelter Sonderfall ist § 110 BGB: Ein Vertrag gilt als von Anfang an wirksam, wenn der Minderjährige die Leistung mit Mitteln bewirkt, die ihm zu diesem Zweck oder zur freien Verfügung überlassen wurden („Taschengeldparagraf“).','Laut Sachverhalt wussten die Eltern vorher nichts von dem Vertrag; eine ausdrückliche oder schlüssige Einwilligung liegt nicht vor. § 110 BGB greift ebenfalls nicht: M hat die Miete noch nicht gezahlt („bewirkt“), und das Geld soll aus der Jahrgangskasse stammen – nicht aus Mitteln, die ihm seine Eltern überlassen haben.','Eine Einwilligung liegt nicht vor. Der Vertrag ist daher zunächst <b>schwebend unwirksam</b>; seine Wirksamkeit hängt von der Genehmigung der Eltern ab (§ 108 I BGB).')}
+${G('8. Genehmigung durch den Vater','Der Vertrag könnte durch eine Genehmigung des Vaters gem. §§ 108 I, 184 I BGB wirksam geworden sein.','Eine Genehmigung ist die nachträgliche Zustimmung (§ 184 I BGB). Sie kann gegenüber dem Minderjährigen oder gegenüber dem Vertragspartner erklärt werden (§ 182 I BGB). Wird sie verweigert, ist der schwebend unwirksame Vertrag endgültig unwirksam.','Herr Mustermann hat am 01.12. gegenüber Frau Schön, also gegenüber der Vertragspartnerin G, ausdrücklich erklärt, er sei mit dem Vertrag nicht einverstanden und die Unterschrift seines Sohnes sei ungültig. Damit hat er die Genehmigung verweigert.','Eine Genehmigung liegt nicht vor. Der Mietvertrag ist <b>endgültig unwirksam</b>.')}
+<p><b>Teilergebnis:</b> Ein wirksamer Mietvertrag liegt nicht vor. Der Anspruch ist nicht entstanden.</p>
+<p><b>Ergebnis:</b> G hat gegen M keinen Anspruch auf Erfüllung des Mietvertrages aus § 535 II BGB. Umgekehrt hat auch M keinen Anspruch auf Überlassung der Aula (§ 535 I 1 BGB) – Frau Schön muss ihm den Schlüssel nicht aushändigen.</p>`;
+
+M1.sections.push(
+{id:'m1-s6',title:'Geschäftsfähigkeit (§§ 104–113 BGB)',html:`
+<p class="lead">Im Fall „Theater mit dem Vater“ ist der Vertrag zwar zustande gekommen – aber ist er auch <b>wirksam</b>? Max ist erst 17. Hier kommt die Geschäftsfähigkeit ins Spiel.</p>
+<div class="box def"><span class="bt">Definition</span><b>Geschäftsfähigkeit</b> ist die Fähigkeit, Rechtsgeschäfte selbstständig wirksam vorzunehmen. (Nicht verwechseln mit der <b>Rechtsfähigkeit</b> – der Fähigkeit, Träger von Rechten und Pflichten zu sein. Sie hat jeder Mensch ab Geburt, § 1 BGB.)</div>
+<div class="grid3">
+<div class="card" style="border-top:6px solid #c2410c"><span class="tag">0 bis 6 Jahre</span><h3 style="margin-top:.4em">Geschäftsunfähig</h3><p><span class="norm">§ 104 BGB</span>: Kinder unter 7 Jahren (Nr. 1) und dauerhaft krankhaft geistig Gestörte (Nr. 2)</p><p><b>Rechtsfolge:</b> WE ist <b>nichtig</b> (<span class="norm">§ 105 I BGB</span>) – auch mit Zustimmung der Eltern!</p><p class="mini">Ebenso nichtig: WE im Zustand der Bewusstlosigkeit oder vorübergehenden Störung der Geistestätigkeit (§ 105 II BGB), z. B. Volltrunkenheit.</p></div>
+<div class="card" style="border-top:6px solid #c27803"><span class="tag">7 bis 17 Jahre</span><h3 style="margin-top:.4em">Beschränkt geschäftsfähig</h3><p><span class="norm">§ 106 BGB</span>: Minderjährige ab Vollendung des 7. Lebensjahres</p><p><b>Rechtsfolge:</b> WE wirksam, wenn <b>lediglich rechtlich vorteilhaft</b> oder mit <b>Zustimmung</b> der gesetzlichen Vertreter (<span class="norm">§§ 107–113 BGB</span>); sonst <b>schwebend unwirksam</b>.</p></div>
+<div class="card" style="border-top:6px solid #1f9d5c"><span class="tag">ab 18 Jahren</span><h3 style="margin-top:.4em">Voll geschäftsfähig</h3><p><span class="norm">§ 2 BGB</span>: Volljährigkeit mit Vollendung des 18. Lebensjahres</p><p><b>Rechtsfolge:</b> WE uneingeschränkt wirksam.</p></div></div>
+<h2>Prüfschema beim beschränkt Geschäftsfähigen</h2>
+<div class="card"><svg viewBox="0 0 860 330" width="100%" role="img" aria-label="Prüfschema beschränkte Geschäftsfähigkeit" style="font-family:Plus Jakarta Sans,sans-serif">
+<defs><marker id="ah2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0L10,5L0,10z" fill="#6b7f90"/></marker></defs><g font-size="13">
+<rect x="300" y="8" width="260" height="40" rx="10" fill="#fdf3e2" stroke="#c27803" stroke-width="2"/><text x="430" y="33" text-anchor="middle" font-weight="700" fill="#10273d">7–17 Jahre (§ 106 BGB)</text>
+<line x1="430" y1="48" x2="430" y2="74" stroke="#6b7f90" stroke-width="2" marker-end="url(#ah2)"/>
+<rect x="270" y="76" width="320" height="40" rx="10" fill="#fff" stroke="#6b7f90" stroke-width="2"/><text x="430" y="101" text-anchor="middle" fill="#10273d">Lediglich rechtlicher Vorteil? (§ 107 BGB)</text>
+<line x1="590" y1="96" x2="690" y2="96" stroke="#6b7f90" stroke-width="2" marker-end="url(#ah2)"/><text x="640" y="88" text-anchor="middle" fill="#13703f" font-weight="700">ja</text>
+<rect x="692" y="72" width="160" height="48" rx="10" fill="#e7f6ee" stroke="#1f9d5c" stroke-width="2"/><text x="772" y="101" text-anchor="middle" font-weight="700" fill="#10273d">wirksam</text>
+<line x1="430" y1="116" x2="430" y2="142" stroke="#6b7f90" stroke-width="2" marker-end="url(#ah2)"/><text x="445" y="134" fill="#c2410c" font-weight="700">nein</text>
+<rect x="230" y="144" width="400" height="40" rx="10" fill="#fff" stroke="#6b7f90" stroke-width="2"/><text x="430" y="169" text-anchor="middle" fill="#10273d">Einwilligung (vorher, § 183) – auch § 110 BGB?</text>
+<line x1="630" y1="164" x2="690" y2="164" stroke="#6b7f90" stroke-width="2" marker-end="url(#ah2)"/><text x="660" y="156" text-anchor="middle" fill="#13703f" font-weight="700">ja</text>
+<rect x="692" y="140" width="160" height="48" rx="10" fill="#e7f6ee" stroke="#1f9d5c" stroke-width="2"/><text x="772" y="169" text-anchor="middle" font-weight="700" fill="#10273d">wirksam</text>
+<line x1="430" y1="184" x2="430" y2="210" stroke="#6b7f90" stroke-width="2" marker-end="url(#ah2)"/><text x="445" y="202" fill="#c2410c" font-weight="700">nein</text>
+<rect x="250" y="212" width="360" height="40" rx="10" fill="#fdf3e2" stroke="#c27803" stroke-width="2"/><text x="430" y="237" text-anchor="middle" font-weight="700" fill="#10273d">schwebend unwirksam (§ 108 I BGB)</text>
+<line x1="430" y1="252" x2="430" y2="276" stroke="#6b7f90" stroke-width="2" marker-end="url(#ah2)"/>
+<rect x="250" y="278" width="360" height="40" rx="10" fill="#fff" stroke="#6b7f90" stroke-width="2"/><text x="430" y="303" text-anchor="middle" fill="#10273d">Genehmigung (nachher, § 184 I)?</text>
+<line x1="610" y1="298" x2="690" y2="298" stroke="#6b7f90" stroke-width="2" marker-end="url(#ah2)"/><text x="650" y="290" text-anchor="middle" fill="#13703f" font-weight="700">ja</text>
+<rect x="692" y="274" width="160" height="48" rx="10" fill="#e7f6ee" stroke="#1f9d5c" stroke-width="2"/><text x="772" y="295" text-anchor="middle" font-weight="700" fill="#10273d">von Anfang an</text><text x="772" y="312" text-anchor="middle" font-weight="700" fill="#10273d">wirksam</text>
+<line x1="250" y1="298" x2="170" y2="298" stroke="#6b7f90" stroke-width="2" marker-end="url(#ah2)"/><text x="210" y="290" text-anchor="middle" fill="#c2410c" font-weight="700">nein</text>
+<rect x="8" y="274" width="160" height="48" rx="10" fill="#fde4d6" stroke="#c2410c" stroke-width="2"/><text x="88" y="295" text-anchor="middle" font-weight="700" fill="#10273d">endgültig</text><text x="88" y="312" text-anchor="middle" font-weight="700" fill="#10273d">unwirksam</text></g></svg></div>
+<h2>Zustimmung = Einwilligung oder Genehmigung (§ 182 BGB)</h2>
+<div class="grid2"><div class="card" style="border-left:6px solid var(--s1)"><h3 style="margin-top:0">Einwilligung – <i>vorher</i></h3><p><span class="norm">§ 183 S. 1 BGB</span>: vorherige Zustimmung. Ausdrücklich („Du darfst dir das Fahrrad für 300 € kaufen“) oder durch schlüssiges Verhalten.</p></div>
+<div class="card" style="border-left:6px solid var(--s3)"><h3 style="margin-top:0">Genehmigung – <i>nachher</i></h3><p><span class="norm">§ 184 I BGB</span>: nachträgliche Zustimmung; sie wirkt auf den Zeitpunkt des Vertragsschlusses zurück. Kann gegenüber dem Minderjährigen <b>oder</b> dem Vertragspartner erklärt werden (§ 182 I BGB).</p></div></div>
+<h2>Weitere wichtige Regeln</h2>
+<table class="t">
+<tr><td style="width:150px"><span class="norm">§ 107 BGB</span></td><td><b>Lediglich rechtlicher Vorteil:</b> Der Minderjährige erhält nur Rechte, ohne Pflichten – z. B. er bekommt etwas geschenkt. Ein Kauf ist <b>nie</b> lediglich rechtlich vorteilhaft (Pflicht zur Zahlung!), auch wenn er ein „Schnäppchen“ ist.</td></tr>
+<tr><td><span class="norm">§ 108 II BGB</span></td><td>Der Vertragspartner kann die Eltern zur Erklärung über die Genehmigung <b>auffordern</b>. Dann kann die Genehmigung nur noch ihm gegenüber erklärt werden – und nur innerhalb von <b>zwei Wochen</b>. Schweigen gilt als Verweigerung.</td></tr>
+<tr><td><span class="norm">§ 108 III BGB</span></td><td>Wird der Minderjährige volljährig, kann er den Vertrag selbst genehmigen.</td></tr>
+<tr><td><span class="norm">§ 109 BGB</span></td><td>Bis zur Genehmigung kann der Vertragspartner seine Erklärung <b>widerrufen</b> – außer er kannte die Minderjährigkeit (dann nur, wenn der Minderjährige wahrheitswidrig eine Einwilligung behauptet hat).</td></tr>
+<tr><td><span class="norm">§ 110 BGB</span></td><td><b>„Taschengeldparagraf“:</b> wirksam, wenn der Minderjährige die Leistung <b>vollständig bewirkt</b> mit Mitteln, die ihm dafür oder zur freien Verfügung überlassen wurden. Ratenkäufe fallen nicht darunter!</td></tr>
+<tr><td><span class="norm">§§ 112, 113 BGB</span></td><td>Teilgeschäftsfähigkeit: für ein mit Genehmigung betriebenes Erwerbsgeschäft (§ 112) bzw. ein erlaubtes Dienst- oder Arbeitsverhältnis (§ 113).</td></tr></table>
+<div class="box info"><span class="bt">Gesetzliche Vertreter</span>Gesetzliche Vertreter eines Kindes sind in der Regel <b>beide Eltern gemeinsam</b> (§ 1629 I BGB). Verweigert ein Elternteil die Zustimmung, fehlt die gemeinsame Zustimmung.</div>
+<div class="w" data-w="m1-sort-gf"></div>
+<div class="w" data-w="m1-write-roller"></div>`},
+
+{id:'m1-s7',title:'Fristen berechnen (§§ 186 ff. BGB)',html:`
+<p class="lead">Annahmefristen (§ 148 BGB), die Zwei-Wochen-Frist des § 108 II BGB, später Widerspruchs- und Kündigungsfristen: In der Verwaltung musst du Fristen sicher berechnen können. Dafür gibt es klare Regeln im BGB.</p>
+<div class="flow">
+<div class="fl" style="border-color:var(--s1)"><b>1. Ereignistag bestimmen</b>Was löst die Frist aus? Meist der Zugang. <span class="norm">§ 187 I BGB</span>: Der Ereignistag zählt <b>nicht</b> mit.</div><div class="arrow">→</div>
+<div class="fl" style="border-color:var(--s2)"><b>2. Fristbeginn</b>am Tag nach dem Ereignis, 0:00 Uhr</div><div class="arrow">→</div>
+<div class="fl" style="border-color:var(--s3)"><b>3. Fristende</b><span class="norm">§ 188 II BGB</span>: Wochen-/Monatsfrist endet an dem Tag, der dem Ereignistag nach Name bzw. Zahl entspricht, 24:00 Uhr.</div><div class="arrow">→</div>
+<div class="fl" style="border-color:var(--s4)"><b>4. Wochenende/Feiertag?</b><span class="norm">§ 193 BGB</span>: Fällt das Ende auf Samstag, Sonntag oder Feiertag, endet die Frist am nächsten Werktag.</div></div>
+<div class="grid2">
+<div class="card"><b>Beispiel Wochenfrist</b><p>Zugang am <b>Mittwoch, 05.11.</b>, Frist zwei Wochen.<br>→ Beginn: Do., 06.11. · Ende: <b>Mittwoch, 19.11., 24:00 Uhr</b></p></div>
+<div class="card"><b>Beispiel Monatsfrist mit § 188 III</b><p>Zugang am <b>31.12.2011</b>, Frist vier Monate.<br>→ Einen 31.04. gibt es nicht → Ende am letzten Tag des Monats: <b>30.04.2012, 24:00 Uhr</b></p></div></div>
+<div class="box info"><span class="bt">Sonderfall: Beginnfrist und Lebensalter (§ 187 II BGB)</span>Beginnt eine Frist mit dem Anfang eines Tages, zählt dieser Tag mit. So beim Lebensalter: Wer am 10.05.2008 geboren ist, wird mit Beginn des <b>10.05.2026</b> (0:00 Uhr) volljährig (§ 187 II 2 BGB).</div>
+<div class="w" data-w="m1-frist"></div>
+<div class="w" data-w="m1-quiz-frist"></div>`},
+
+{id:'m1-s8',title:'Die Lösungsskizze zum Fall',html:`
+<p class="lead">Jetzt setzt du alles zusammen. Entscheide zuerst selbst, welche Prüfungspunkte erfüllt sind – danach siehst du die komplette Lösungsskizze.</p>
+<div class="w" data-w="m1-sort-skizze"></div>
+<details class="card"><summary><b>Komplette Lösungsskizze anzeigen</b></summary>
+<div class="tree" style="margin-top:12px"><ul><li><b>G könnte gegen M einen Anspruch auf Erfüllung des Mietvertrages (Zahlung der Miete i. H. v. 150 €) gem. § 535 II BGB haben.</b>
+<ul><li><b>I. Anspruch entstanden?</b> – wirksamer Mietvertrag
+<ul><li>Einigung durch Antrag und Annahme (§§ 145 ff. BGB)
+<ul><li><b>10.11.:</b> Antrag durch M (§ 145)? Miete nicht genannt, kein Rechtsbindungswille → <span class="no">(–)</span></li>
+<li><b>24.11.:</b> Antrag durch G (§ 145) <span class="ok">(+)</span><ul><li>Abgabe <span class="ok">(+)</span></li><li>Zugang (Übergabe unter Anwesenden) <span class="ok">(+)</span></li></ul></li>
+<li><b>24.11.:</b> Annahme durch M (§ 147 I) <span class="ok">(+)</span><ul><li>Abgabe <span class="ok">(+)</span></li><li>uneingeschränktes Einverständnis <span class="ok">(+)</span></li><li>Annahmefrist: sofort <span class="ok">(+)</span></li><li>Zugang <span class="ok">(+)</span></li></ul></li>
+<li><span class="te">TE: Einigung (+) → Mietvertrag zustande gekommen</span></li></ul></li>
+<li><b>Problem: Wirksamkeit – Minderjährigkeit</b>
+<ul><li>beschränkte Geschäftsfähigkeit (§§ 2, 106) <span class="ok">(+)</span> → §§ 107 ff.</li>
+<li>lediglich rechtlicher Vorteil (§ 107)? Pflicht zur Mietzahlung, Haftung → <span class="no">(–)</span></li>
+<li>Einwilligung (§§ 107, 183)? ausdrücklich <span class="no">(–)</span>, schlüssig/§ 110 <span class="no">(–)</span></li>
+<li><span class="te">TE: schwebend unwirksam (§ 108 I)</span></li>
+<li>Genehmigung (§§ 108 I, 184 I)? Vater verweigert ggü. G (§ 182 I) <span class="no">(–)</span></li>
+<li><span class="te">TE: endgültig unwirksam</span></li></ul></li>
+<li><span class="te">TE: wirksamer Mietvertrag (–)</span></li></ul></li>
+<li><b>Ergebnis:</b> G hat <span class="no">keinen</span> Anspruch gegen M aus § 535 II BGB.</li></ul></li></ul></div></details>
+<div class="box merke"><span class="bt">Warum prüft man den 10.11. überhaupt?</span>Weil der Sachverhalt ein Gespräch an diesem Tag schildert. Ein gutes Gutachten zeigt, dass du jede rechtlich mögliche Erklärung gesehen hast – auch wenn sie im Ergebnis keine ist. Unproblematisches darfst du dabei kurz halten.</div>`},
+
+{id:'m1-s9',title:'Das Gutachten schreiben',html:`
+<p class="lead">Formuliere das Gutachten in drei Etappen. Schreibe jede Etappe zuerst selbst – erst dann blendest du die Musterlösung ein. Deine Texte werden in deinem Browser gespeichert.</p>
+${STEPS_VISUAL}
+<div class="w" data-w="m1-write-g1"></div>
+<div class="w" data-w="m1-write-g2"></div>
+<div class="w" data-w="m1-write-g3"></div>
+<h2>Vom Gutachten zur Antwort: der Vermerk an Frau Schön</h2>
+<p>Frau Schön braucht kein Gutachten, sondern eine klare Antwort. Für sie schreibst du im <b>Urteilsstil</b>: Ergebnis zuerst, dann kurz die Begründung – verständlich und ohne Fachchinesisch.</p>
+<div class="w" data-w="m1-write-vermerk"></div>`},
+
+{id:'m1-s10',title:'Abschlusstest, Checkliste & KI-Prompts',html:`
+<p class="lead">Zeit für die Bilanz! Teste dein Wissen zu LS 1, bewerte dein Gutachten mit der Checkliste und vertiefe mit den KI-Prompts, was noch wackelt.</p>
+<div class="w" data-w="m1-quiz-final"></div>
+<div class="w" data-w="m1-qa-quick"></div>
+<div class="w" data-w="m1-check"></div>
+<div class="w" data-w="m1-prompts"></div>
+<div class="box merke"><span class="bt">Und jetzt?</span>Trage unter <a href="#ziele">Lernziele &amp; Selbsteinschätzung</a> ein, was du sicher kannst. Notiere offene Fragen für den Unterricht. Die nächste Lernsituation („Lena muss schweigen“ – Stellvertretung &amp; Anfechtung) schaltet deine Lehrkraft frei.</div>`}
+);
+
+/* ---------- Widgets Modul 1 ---------- */
+W['m1-flips-w']={type:'flips',title:'W-Fragen zum Fall – erst überlegen, dann umdrehen',items:[
+{f:'Wer?',b:'Das Gutenberg-Gymnasium (G) – genauer: der Schulträger, die Stadt Neustadt.'},
+{f:'Will was?',b:'Erfüllung des Mietvertrages, insbesondere Zahlung der Miete i. H. v. 150 € (und Haftung für Schäden).'},
+{f:'Von wem?',b:'Von Max Mustermann (M), 17 Jahre, Jahrgangssprecher.'},
+{f:'Warum?',b:'Weil Max am 24.11. den Mietvertrag über die Aula unterschrieben hat.'},
+{f:'Woraus?',b:'Aus § 535 II BGB (Pflicht des Mieters zur Zahlung der Miete).'},
+{f:'Was ist das Problem?',b:'Max ist minderjährig, und sein Vater hat dem Vertrag widersprochen → Geschäftsfähigkeit (§§ 106 ff. BGB).'}]};
+
+W['m1-write-obersatz']={type:'write',cmp:'Hast du alle W-Fragen in deinem Obersatz beantwortet und den Konjunktiv genutzt?',title:'Formuliere den Obersatz',task:'<p>Formuliere mit Hilfe der W-Fragen den Obersatz für dein Gutachten.</p>',hint:'Muster: „[Wer] könnte gegen [wen] einen Anspruch auf [was] aus [Norm] haben.“',
+sol:'<div class="card" style="margin:0">Das Gutenberg-Gymnasium (G) könnte gegen Max Mustermann (M) einen Anspruch auf Erfüllung des Mietvertrages über die Aula, insbesondere auf Zahlung der Miete i. H. v. 150,00 €, aus § 535 II BGB haben.</div>'};
+
+W['m1-quiz-sv']={type:'quiz',title:'Hast du den Sachverhalt verstanden?',qs:[
+{q:'Was geschah am 10.11.?',o:['Max unterschrieb den Mietvertrag.','Max erkundigte sich nach einer Mietmöglichkeit; Frau Schön sagte nichts zu.','Der Vater widersprach dem Vertrag.','Der Schulleiter lehnte die Vermietung ab.'],a:1,e:'Am 10.11. gab es nur eine Erkundigung – Frau Schön wollte erst mit dem Schulleiter sprechen.'},
+{q:'Wer hat den Mietvertrag zuerst unterschrieben?',o:['Max','Frau Schön','Der Schulleiter','Der Vater'],a:2,e:'Der Vertrag war „vorab schon vom Schulleiter unterzeichnet“ – das ist für die Frage wichtig, wer den Antrag gemacht hat.'},
+{q:'Gegenüber wem hat der Vater seine Ablehnung erklärt?',o:['Gegenüber Max','Gegenüber Frau Schön (also der Schule)','Gegenüber dem Fachdienst Recht','Gegenüber dem Abiturjahrgang'],a:1,e:'Er erklärte es Frau Schön im Büro – also gegenüber der Vertragspartnerin. Das wird bei § 182 I BGB wichtig.'},
+{q:'Welche Frage musst du laut Bearbeitungshinweis NICHT prüfen?',o:['Ob Max geschäftsfähig ist','Ob ein Vertrag zustande gekommen ist','Ob Sekretärin und Schulleiter die Schule wirksam vertreten (Stellvertretung)','Ob der Vater zugestimmt hat'],a:2,e:'Stellvertretungsfragen sind ausgeklammert – sie folgen in LS 2.'}]};
+
+W['m1-sort-we']={type:'sort',title:'Gibt Maren eine Willenserklärung ab?',intro:'Entscheide, ob eine Willenserklärung vorliegt – und wenn ja, in welcher Form.',
+cats:['WE – ausdrücklich','WE – konkludent','keine WE'],
+items:[
+{t:'Maren setzt handschriftlich ihr Testament auf.',c:0,fb:'Ausdrückliche, nicht empfangsbedürftige WE.'},
+{t:'Maren bucht im Internet einen Flug und klickt auf „zahlungspflichtig buchen“.',c:0,fb:'Ausdrückliche WE in elektronischer Form.'},
+{t:'Maren rutscht mit ihrem Auto auf eisglatter Straße und beschädigt ein parkendes Fahrzeug.',c:2,fb:'Kein Wille, eine Rechtsfolge herbeizuführen – ein bloßer Unfall (ggf. Schadensersatz nach Deliktsrecht).'},
+{t:'Maren nimmt für ihren Nachbarn ein Paket an.',c:2,fb:'Reine Gefälligkeit/tatsächliche Handlung ohne Rechtsbindungswillen.'},
+{t:'Maren kündigt schriftlich ihren Arbeitsvertrag.',c:0,fb:'Ausdrückliche, empfangsbedürftige WE.'},
+{t:'Maren legt im Supermarkt eine Packung Kaffee wortlos aufs Kassenband.',c:1,fb:'Schlüssiges Verhalten: Sie will den Kaffee kaufen.'},
+{t:'Maren wirft am Parkscheinautomaten Münzen ein und drückt die Taste.',c:1,fb:'Konkludente WE.'},
+{t:'Maren bekommt per Post ein Zeitschriften-Probeabo angeboten und reagiert einfach nicht.',c:2,fb:'Schweigen ist grundsätzlich keine Willenserklärung.'},
+{t:'Maren bewegt im Schlaf den Arm und drückt dabei auf ihrem Tablet auf „Bestellen“.',c:2,fb:'Es fehlt der Handlungswille – keine WE.'}]};
+
+W['m1-quiz-zugang']={type:'quiz',title:'Selbsttest: Abgabe & Zugang',qs:[
+{q:'Ein Brief an die Stadtverwaltung wird am Dienstag um 22:00 Uhr in den Behördenbriefkasten geworfen. Wann geht er zu?',o:['Dienstag, 22:00 Uhr','Mittwoch zu Dienstbeginn','Wenn die Sachbearbeiterin ihn liest','Erst nach Eingangsstempel und Weiterleitung'],a:1,e:'Außerhalb der Dienstzeit ist erst mit Beginn der nächsten Dienstzeit mit der Kenntnisnahme zu rechnen.'},
+{q:'Händler K bietet ein Buch nur „im November“ an und fährt am 30.11. frühmorgens für eine Woche weg. M wirft seine Bestellung am 30.11. um 19:00 Uhr in den Geschäftsbriefkasten. Ist die Bestellung im November zugegangen?',o:['Ja, Einwurf am 30.11. genügt.','Nein – nach Geschäftsschluss ist erst am nächsten Geschäftstag (01.12.) mit Kenntnisnahme zu rechnen.','Nein, weil K verreist ist – Zugang erst bei seiner Rückkehr.','Ja, weil K den Zugang vereitelt hat.'],a:1,e:'Um 19:00 Uhr ist nach der Verkehrsanschauung nicht mehr mit einer Leerung des Geschäftsbriefkastens zu rechnen. Die Reise des K spielt keine Rolle – Zugang wird abstrakt beurteilt.'},
+{q:'Eine Bestellkarte liegt um 9:00 Uhr in der Posteingangsstelle eines Versandhauses. Um 11:00 Uhr ruft der Kunde an und widerruft. Die Karte wurde noch nicht gelesen. Ist der Widerruf wirksam?',o:['Ja, weil die Karte noch nicht gelesen wurde.','Nein – der Widerruf muss vorher oder gleichzeitig zugehen (§ 130 I 2 BGB); die Bestellung war um 9:00 Uhr schon zugegangen.','Ja, telefonische Erklärungen gehen immer vor.','Nein, ein Widerruf ist nie möglich.'],a:1,e:'Es kommt auf den Zugang an, nicht auf das tatsächliche Lesen.'},
+{q:'Wann wird ein Testament wirksam?',o:['Mit Zugang beim Erben','Mit der Abgabe – es ist nicht empfangsbedürftig','Mit Eröffnung durch das Nachlassgericht','Mit Zugang beim Notar'],a:1,e:'Nicht empfangsbedürftige WE werden schon mit der Abgabe wirksam (die erbrechtliche Wirkung tritt natürlich erst mit dem Erbfall ein).'},
+{q:'Ein Mitarbeiter versteckt sich wochenlang, damit ihm die Kündigung nicht übergeben werden kann. Folge?',o:['Kündigung geht nie zu','Er muss sich so behandeln lassen, als sei die Kündigung rechtzeitig zugegangen (§ 242 BGB)','Kündigung ist nichtig','Arbeitgeber muss erneut kündigen'],a:1,e:'Grundlose Zugangsvereitelung ist nach Treu und Glauben unbeachtlich.'},
+{q:'Welche Aussage zur Erklärung am Telefon stimmt?',o:['Sie gilt als Erklärung unter Abwesenden.','Sie wird wie eine Erklärung unter Anwesenden behandelt (§ 147 I 2 BGB).','Sie ist nur wirksam, wenn sie schriftlich bestätigt wird.','Sie wird erst mit dem Auflegen wirksam.'],a:1,e:'Telefonische Erklärungen werden wie Erklärungen unter Anwesenden behandelt.'}]};
+
+W['m1-quiz-aa']={type:'quiz',title:'Selbsttest: Antrag & Annahme',qs:[
+{q:'Ein Elektromarkt wirbt im Prospekt: „Laptop X nur 499 €!“. Was ist das rechtlich?',o:['Ein Antrag an alle Leser','Eine Annahme','Eine Aufforderung zur Abgabe von Anträgen (invitatio ad offerendum)','Eine nicht empfangsbedürftige WE'],a:2,e:'Der Händler will sich nicht gegenüber unbestimmt vielen Personen binden – der Antrag kommt vom Kunden.'},
+{q:'Welche Bestandteile muss ein Antrag beim Kaufvertrag mindestens enthalten?',o:['Vertragsparteien, Kaufsache, Kaufpreis','Lieferdatum, Zahlungsziel, Skonto','Unterschrift und Datum','AGB und Widerrufsbelehrung'],a:0,e:'Die wesentlichen Vertragsbestandteile: Parteien, Leistung, Gegenleistung.'},
+{q:'Ein Antrag wird am Telefon gemacht. Bis wann kann er angenommen werden?',o:['Innerhalb einer Woche','Nur sofort, also solange das Telefonat andauert (§ 147 I 2 BGB)','Bis zum Ende des Tages','Innerhalb von zwei Wochen'],a:1,e:'Telefonische Anträge gelten als Anträge unter Anwesenden.'},
+{q:'Die Stadt antwortet auf ein Angebot: „Einverstanden, aber mit 5 % Rabatt.“ Folge?',o:['Annahme – der Vertrag gilt mit Rabatt','Annahme – der Vertrag gilt ohne Rabatt','Ablehnung mit Änderung = neuer Antrag (§ 150 II BGB)','Die Erklärung ist nichtig'],a:2,e:'Eine Annahme unter Änderungen ist keine Annahme, sondern ein neuer Antrag.'},
+{q:'Ein Angebot ist „gültig bis 08.12.“. Die Bestellung geht am 09.12. zu. Folge?',o:['Vertrag ist geschlossen','Die verspätete Annahme gilt als neuer Antrag (§ 150 I BGB)','Der Antragende muss die Verspätung anzeigen','Der Vertrag ist anfechtbar'],a:1,e:'Die Frist des § 148 BGB ist abgelaufen; die Bestellung ist nur ein neuer Antrag.'},
+{q:'Wann greift § 149 BGB?',o:['Wenn die Annahme zu spät abgeschickt wurde','Wenn die Annahme rechtzeitig abgeschickt wurde, durch einen unregelmäßigen Transport verspätet ankommt und der Antragende das erkennen muss','Wenn der Antragende minderjährig ist','Wenn die Annahme Änderungen enthält'],a:1,e:'Dann muss der Antragende die Verspätung unverzüglich anzeigen – sonst gilt die Annahme als rechtzeitig.'},
+{q:'Was passiert mit einem Antrag, den der Empfänger ablehnt?',o:['Er bleibt bestehen','Er erlischt (§ 146 BGB)','Er wird zur Annahme','Er wird schwebend unwirksam'],a:1,e:'§ 146 Alt. 1 BGB: Der Antrag erlischt mit der Ablehnung.'}]};
+
+W['m1-sort-faelle']={type:'sort',title:'Ist ein Vertrag zustande gekommen?',intro:'Ordne jeden Fall zu. Die Details findest du in den Lösungsskizzen oben.',
+cats:['Ja, Vertrag (+)','Nein, Vertrag (–)'],
+items:[
+{t:'<b>Fall A:</b> Stadt bestellt Papier zu den Preisen aus einem Werbeflyer; der Händler antwortet „ausverkauft“.',c:1,fb:'Flyer = invitatio; die Bestellung (Antrag) wurde abgelehnt.'},
+{t:'<b>Fall B:</b> Telefonisches Angebot wird abgelehnt; 20 Minuten später ruft der Sachbearbeiter zurück und will bestellen – das Gerät ist verkauft.',c:1,fb:'Der Antrag ist durch die Ablehnung erloschen (§ 146); der Rückruf ist ein neuer Antrag, der nicht angenommen wird.'},
+{t:'<b>Fall C:</b> Angebot „gültig bis 08.12.“; Bestellung der Stadt am 09.12.',c:1,fb:'Verspätete Annahme = neuer Antrag (§ 150 I).'},
+{t:'<b>Fall D:</b> Händler lehnt ab, bietet aber anderes Papier an; die Stadt bestellt dieses zu den genannten Konditionen.',c:0,fb:'Neuer Antrag nach § 150 II + rechtzeitige Annahme der Stadt.'},
+{t:'<b>Fall E:</b> Annahme wird rechtzeitig abgeschickt, kommt wegen einer Postverzögerung zu spät an; das Museum zeigt die Verspätung nicht an.',c:0,fb:'§ 149 S. 2: Die Annahme gilt als nicht verspätet.'}]};
+
+W['m1-sort-gf']={type:'sort',title:'Wirksam oder nicht?',intro:'Entscheide, wie es um die Wirksamkeit des Vertrages steht.',
+cats:['wirksam','schwebend unwirksam','endgültig unwirksam / nichtig'],
+items:[
+{t:'Die 6-jährige Lina kauft am Kiosk ein Eis für 1,50 € und zahlt mit ihrem Taschengeld.',c:2,fb:'Lina ist geschäftsunfähig (§ 104 Nr. 1) – ihre WE ist nichtig (§ 105 I). § 110 gilt nur für beschränkt Geschäftsfähige!'},
+{t:'Der 16-jährige Tim bekommt von seiner Tante ein Fahrrad geschenkt.',c:0,fb:'Die Schenkung ist lediglich rechtlich vorteilhaft (§ 107).'},
+{t:'Die 15-jährige Sara kauft von ihrem Taschengeld ein Buch für 12 € und zahlt sofort bar.',c:0,fb:'§ 110: Leistung mit überlassenen Mitteln vollständig bewirkt.'},
+{t:'Der 17-jährige Jonas kauft ohne Wissen seiner Eltern ein Handy für 600 € auf Raten.',c:1,fb:'Weder Einwilligung noch § 110 (Raten = nicht vollständig bewirkt) → § 108 I.'},
+{t:'Wie bei Jonas – aber die Eltern erklären später dem Händler, sie seien nicht einverstanden.',c:2,fb:'Genehmigung verweigert → endgültig unwirksam.'},
+{t:'Die Eltern der 17-jährigen Mia erlauben ihr vorher, sich ein bestimmtes E-Bike für 900 € zu kaufen. Mia kauft es.',c:0,fb:'Einwilligung (§§ 107, 183).'},
+{t:'Der 19-jährige Paul schließt einen Handyvertrag ab.',c:0,fb:'Volljährig, § 2 – voll geschäftsfähig.'}]};
+
+W['m1-write-roller']={type:'write',cmp:'Stimmt deine Prüfungsreihenfolge? Hast du bei Antrag und Annahme Abgabe und Zugang geprüft und jedes Teilergebnis mit (+) oder (–) gekennzeichnet?',title:'Übungsfall: Der Roller',task:'<p><b>Sachverhalt:</b> Lukas (17) hat ständig Geldsorgen. Er verkauft seinen Roller für 650 € an seinen Freund Markus (17). Markus bittet mittags seine Eltern, ihm das Geld zur Verfügung zu stellen – die Eltern weigern sich, sie sind mit dem Kauf nicht einverstanden. Lukas regt sich auf: Die Eltern hätten damit nichts zu tun. Er fordert die 650 €.</p><p><b>Aufgabe:</b> Hat Lukas (L) gegen Markus (M) einen Anspruch auf Zahlung des Kaufpreises? Erstelle eine Lösungsskizze.</p>',
+hint:'Wer will was von wem woraus? Der Verkäufer will den Kaufpreis …',
+sol:`<div class="tree"><ul><li>L könnte von M die Zahlung des Kaufpreises i. H. v. 650 € gem. § 433 II BGB verlangen.
+<ul><li><b>I. Anspruch entstanden?</b> – wirksamer Kaufvertrag
+<ul><li>Antrag (§ 145) <span class="ok">(+)</span>: Abgabe <span class="ok">(+)</span>, Zugang <span class="ok">(+)</span></li><li>Annahme (§ 147) <span class="ok">(+)</span>: Abgabe <span class="ok">(+)</span>, Zugang <span class="ok">(+)</span></li><li><span class="te">TE: Einigung (+)</span></li>
+<li>Problem: Minderjährigkeit des M
+<ul><li>beschränkte Geschäftsfähigkeit (§ 106) <span class="ok">(+)</span></li>
+<li>lediglich rechtlicher Vorteil (§ 107)? Zahlungspflicht → <span class="no">(–)</span></li>
+<li>Einwilligung (§ 183): ausdrücklich <span class="no">(–)</span>, § 110 <span class="no">(–)</span></li>
+<li><span class="te">TE: schwebend unwirksam (§ 108 I)</span></li>
+<li>Genehmigung (§ 184 I)? Eltern verweigern <span class="no">(–)</span> → endgültig unwirksam</li></ul></li>
+<li><span class="te">TE: wirksamer KV (–)</span></li></ul></li>
+<li><b>Ergebnis:</b> L kann von M die Zahlung von 650 € nicht verlangen.</li></ul></li></ul></div>
+<div class="box info" style="font-size:.9rem"><span class="bt">Für Profis</span>Auch Lukas ist 17 – sein Verkauf ist für ihn ebenfalls nicht lediglich rechtlich vorteilhaft (er muss den Roller übereignen). Da der Vertrag schon an der fehlenden Genehmigung durch die Eltern des Markus scheitert, kommt es darauf aber nicht mehr an.</div>`};
+
+W['m1-frist']={type:'frist',title:'Fristen selbst berechnen',intro:'Probiere verschiedene Fälle aus – z. B. die Zwei-Wochen-Frist des § 108 II BGB oder eine Monatsfrist zum Monatsende. Der Rechner zeigt dir jeden Rechenschritt mit Norm.'};
+
+W['m1-quiz-frist']={type:'quiz',title:'Selbsttest: Fristen',qs:[
+{q:'Ein Angebot geht der Stadt am Mittwoch, 05.11., zu: „Sie können innerhalb von zwei Wochen annehmen.“ Wann endet die Frist?',o:['Dienstag, 18.11., 24:00 Uhr','Mittwoch, 19.11., 24:00 Uhr','Donnerstag, 20.11., 24:00 Uhr','Freitag, 21.11., 24:00 Uhr'],a:1,e:'Ereignistag zählt nicht mit (§ 187 I); Ende am gleichnamigen Wochentag (§ 188 II).'},
+{q:'Ereignistag 30.01. (kein Schaltjahr), Frist ein Monat. Fristende?',o:['28.02.','01.03.','02.03.','30.02.'],a:0,e:'Den 30.02. gibt es nicht → § 188 III BGB: letzter Tag des Monats.'},
+{q:'Das rechnerische Fristende fällt auf einen Samstag. Was gilt?',o:['Die Frist endet am Freitag davor.','Die Frist endet am Samstag.','Die Frist endet am nächsten Werktag (§ 193 BGB).','Die Frist verlängert sich um eine Woche.'],a:2,e:'§ 193 BGB schützt vor Fristablauf am Wochenende oder Feiertag.'},
+{q:'Die Schule fordert die Eltern eines Minderjährigen am 03.03. (Zugang) zur Genehmigung auf. Die Eltern melden sich nicht. Was gilt nach § 108 II BGB?',o:['Die Genehmigung gilt nach zwei Wochen als erteilt.','Die Genehmigung gilt nach zwei Wochen als verweigert.','Der Vertrag bleibt für immer schwebend unwirksam.','Die Schule muss klagen.'],a:1,e:'Schweigen gilt als Verweigerung (§ 108 II 2 BGB) – Frist zwei Wochen ab Empfang der Aufforderung.'},
+{q:'Max ist am 15.04.2009 geboren. Ab wann ist er volljährig?',o:['Ab dem 14.04.2027','Ab Beginn des 15.04.2027','Ab dem 16.04.2027','Ab dem 15.04.2026'],a:1,e:'§ 187 II 2 BGB: Der Geburtstag wird mitgerechnet – volljährig ab 0:00 Uhr des 18. Geburtstags.'}]};
+
+W['m1-sort-skizze']={type:'sort',title:'Erst selbst entscheiden: (+) oder (–)?',intro:'Entscheide für jeden Prüfungspunkt, ob er im Fall „Theater mit dem Vater“ erfüllt ist.',
+cats:['(+) erfüllt','(–) nicht erfüllt'],
+items:[
+{t:'Antrag des M am 10.11. (§ 145 BGB)',c:1,fb:'Nur eine Erkundigung – Miete nicht genannt, kein Rechtsbindungswille.'},
+{t:'Antrag des G am 24.11. durch Vorlage des unterschriebenen Vertrages',c:0,fb:'Alle wesentlichen Vertragsbestandteile, Unterschrift des Schulleiters.'},
+{t:'Annahme durch M am 24.11. (§ 147 I BGB)',c:0,fb:'Sofortige, uneingeschränkte Zustimmung durch Unterschrift.'},
+{t:'Einigung über den Mietvertrag',c:0,fb:'Antrag + Annahme = Einigung.'},
+{t:'M ist beschränkt geschäftsfähig (§ 106 BGB)',c:0,fb:'17 Jahre.'},
+{t:'Der Vertrag ist für M lediglich rechtlich vorteilhaft (§ 107 BGB)',c:1,fb:'Er muss Miete zahlen und haftet für Schäden.'},
+{t:'Einwilligung der Eltern liegt vor (§ 183 BGB / § 110 BGB)',c:1,fb:'Die Eltern wussten nichts; § 110 greift nicht.'},
+{t:'Genehmigung durch den Vater (§§ 108 I, 184 BGB)',c:1,fb:'Ausdrücklich verweigert – gegenüber G.'},
+{t:'Wirksamer Mietvertrag',c:1,fb:'Endgültig unwirksam.'}]};
+
+W['m1-write-g1']={type:'write',title:'Etappe 1: Obersatz und Antrag am 10.11.',task:'<p>Schreibe den Obersatz, die Hinleitung („Dazu müsste …“) und prüfe in vier Schritten, ob Max am 10.11. einen Antrag gemacht hat.</p>',hint:'Bei Schritt 3 die Elemente der Definition durchgehen: Parteien? Mietsache? Miete? Rechtsbindungswille?',
+sol:GUT_VERTRAG.split('<div class="gut"><div class="ttl">2.')[0]};
+W['m1-write-g2']={type:'write',title:'Etappe 2: Antrag, Zugang und Annahme am 24.11.',task:'<p>Prüfe den Antrag des G, seinen Zugang und die Annahme durch Max am 24.11. Schließe mit einem Teilergebnis zur Einigung.</p>',hint:'Unter Anwesenden: Annahme nur sofort möglich (§ 147 I BGB).',
+sol:'<div class="gut"><div class="ttl">2.'+GUT_VERTRAG.split('<div class="gut"><div class="ttl">2.')[1]};
+W['m1-write-g3']={type:'write',title:'Etappe 3: Problem Geschäftsfähigkeit & Ergebnis',task:'<p>Prüfe die Wirksamkeit des Vertrages: beschränkte Geschäftsfähigkeit, lediglich rechtlicher Vorteil, Einwilligung, Genehmigung. Formuliere das Ergebnis.</p>',hint:'Das ist der Problemschwerpunkt – hier darfst du ausführlich werden. Achte auf die Begriffe „schwebend unwirksam“ und „endgültig unwirksam“.',
+sol:GUT_GF};
+W['m1-write-vermerk']={type:'write',cmp:'Steht das Ergebnis am Anfang (Urteilsstil)? Ist deine Antwort für Frau Schön verständlich und beantwortet sie auch die Frage nach dem Aulaschlüssel?',title:'Antwort an Frau Schön (Urteilsstil)',task:'<p>Schreibe Frau Schön eine kurze Antwort (4–6 Sätze): Ist der Vertrag wirksam? Was sagt sie Max, wenn er um den Schlüssel bittet?</p>',hint:'Ergebnis zuerst! Verständliche Sprache, Normen nur sparsam.',
+sol:'<div class="doc" style="font-size:.93rem"><b>Ihr Vermerk vom 01.12.20.. – Anmietung der Aula für das Abi-Varieté</b><br><br>Sehr geehrte Frau Schön,<br><br>der Mietvertrag mit Max Mustermann ist <b>nicht wirksam</b>. Max ist mit 17 Jahren beschränkt geschäftsfähig. Weil er sich mit dem Vertrag zur Zahlung der Miete von 150 € und zur Haftung für Schäden verpflichtet, brauchte er die Zustimmung seiner Eltern (§§ 106, 107 BGB). Diese lag beim Vertragsschluss nicht vor; der Vertrag war daher zunächst schwebend unwirksam (§ 108 I BGB). Da Herr Mustermann Ihnen gegenüber die Genehmigung ausdrücklich verweigert hat, ist der Vertrag endgültig unwirksam.<br><br>Max hat deshalb keinen Anspruch auf Überlassung der Aula – den Schlüssel müssen Sie ihm nicht aushändigen. Möchte der Jahrgang die Aula weiterhin mieten, kann z. B. ein volljähriger Schüler oder die Elternvertretung einen neuen Vertrag schließen; alternativ müssten Max’ Eltern zustimmen.<br><br>Mit freundlichen Grüßen<br>i. A. [Name], FD Recht</div>'};
+
+W['m1-quiz-final']={type:'quiz',title:'Abschlusstest LS 1',qs:[
+{q:'Wodurch kommt ein Vertrag zustande?',o:['Durch Unterschrift beider Parteien','Durch zwei übereinstimmende Willenserklärungen – Antrag und Annahme','Durch Übergabe der Ware','Durch Zahlung'],a:1,e:'Einigung durch Antrag und Annahme (§§ 145 ff. BGB). Eine Unterschrift ist nur eine Form der Erklärung.'},
+{q:'Welche Anspruchsgrundlage nutzt die Schule, wenn sie von Max die Miete verlangt?',o:['§ 433 II BGB','§ 535 I 1 BGB','§ 535 II BGB','§ 145 BGB'],a:2,e:'Der Vermieter verlangt die Miete → § 535 II BGB.'},
+{q:'Warum liegt am 10.11. kein Antrag des Max vor?',o:['Weil Max minderjährig ist','Weil die Miete nicht genannt wurde und Max sich nur erkundigen wollte','Weil er nicht schriftlich gefragt hat','Weil Frau Schön nicht zuständig war'],a:1,e:'Es fehlen ein wesentlicher Vertragsbestandteil und der Rechtsbindungswille.'},
+{q:'Wer macht am 24.11. den Antrag?',o:['Max','Die Schule (G) durch Vorlage des vom Schulleiter unterschriebenen Vertrages','Der Vater','Niemand'],a:1,e:'Der vorbereitete und bereits unterschriebene Vertrag enthält alle wesentlichen Bestandteile – Max muss nur noch „Ja“ sagen.'},
+{q:'Was bedeutet „schwebend unwirksam“?',o:['Der Vertrag ist von Anfang an nichtig.','Der Vertrag ist wirksam, kann aber angefochten werden.','Die Wirksamkeit hängt noch von der Genehmigung der gesetzlichen Vertreter ab.','Der Vertrag ist nur für eine Partei bindend.'],a:2,e:'§ 108 I BGB: Mit Genehmigung wird er (rückwirkend) wirksam, mit Verweigerung endgültig unwirksam.'},
+{q:'Warum ändert die Aussage „der Jahrgang zahlt alle Kosten“ nichts an der Zustimmungsbedürftigkeit?',o:['Weil der Jahrgang nicht rechtsfähig ist','Weil es bei § 107 BGB nur auf rechtliche Pflichten ankommt – Max bleibt selbst Schuldner der Miete','Weil 150 € zu viel sind','Weil die Schule das Geld nicht annehmen darf'],a:1,e:'Wirtschaftliche Erwägungen spielen bei § 107 BGB keine Rolle.'},
+{q:'Warum greift § 110 BGB im Fall nicht?',o:['Max hat die Miete noch nicht bezahlt, und das Geld stammt nicht aus Mitteln, die ihm die Eltern überlassen haben','Max ist zu jung','§ 110 gilt nur für Kaufverträge','Weil der Vater widersprochen hat'],a:0,e:'§ 110 verlangt, dass die Leistung mit überlassenen Mitteln bewirkt wird.'},
+{q:'Konnte der Vater die Genehmigung gegenüber Frau Schön verweigern?',o:['Nein, nur gegenüber Max','Ja – Genehmigung bzw. Verweigerung kann gegenüber dem Minderjährigen oder dem Vertragspartner erklärt werden (§ 182 I BGB)','Nein, nur schriftlich','Nein, nur vor Gericht'],a:1,e:'§ 182 I BGB lässt beide Adressaten zu.'},
+{q:'Was unterscheidet Einwilligung und Genehmigung?',o:['Einwilligung ist schriftlich, Genehmigung mündlich','Einwilligung = vorherige, Genehmigung = nachträgliche Zustimmung','Es gibt keinen Unterschied','Einwilligung gibt das Gericht, Genehmigung die Eltern'],a:1,e:'§ 183 S. 1 und § 184 I BGB.'},
+{q:'Ein 6-jähriges Kind kauft mit Taschengeld ein Eis. Rechtslage?',o:['Wirksam nach § 110 BGB','Schwebend unwirksam','Nichtig, da das Kind geschäftsunfähig ist (§§ 104 Nr. 1, 105 I BGB)','Wirksam, weil lediglich rechtlich vorteilhaft'],a:2,e:'§ 110 gilt nur für beschränkt Geschäftsfähige ab 7 Jahren.'},
+{q:'Eine Annahme mit Änderungen ist …',o:['eine wirksame Annahme','eine Ablehnung mit Änderung = neuer Antrag (§ 150 II BGB)','nichtig','schwebend unwirksam'],a:1,e:'§ 150 II BGB.'},
+{q:'Wann geht eine E-Mail an eine Behörde zu, die am Dienstag um 10:15 Uhr eingeht?',o:['Wenn sie gelesen wird','Sofort mit Eingang im Postfach während der Dienstzeit','Am nächsten Tag','Wenn eine Lesebestätigung verschickt wird'],a:1,e:'Während der Geschäftszeit ist sofort mit Kenntnisnahme zu rechnen.'},
+{q:'Welches Ergebnis hat das Gutachten im Fall „Theater mit dem Vater“?',o:['Die Schule hat einen Anspruch auf 150 €.','Der Vertrag ist wirksam, aber anfechtbar.','Die Schule hat keinen Anspruch – der Vertrag ist endgültig unwirksam.','Max muss die Hälfte zahlen.'],a:2,e:'Genehmigung verweigert → endgültig unwirksam → kein Anspruch aus § 535 II BGB.'}]};
+
+W['m1-check']={type:'check',title:'Checkliste: Was habe ich nach „Theater mit dem Vater“ gelernt?',intro:'Schätze dich ehrlich ein. „Vage“ oder „fehlt“? Dann nutze die Links zu den Abschnitten oder die KI-Prompts unten.',
+items:['Es gelingt mir, den Obersatz eines Gutachtens vollständig zu formulieren.',
+'Ich setze die vier Schritte der Gutachtentechnik konsequent um.',
+'Ich vergesse keinen der vier Schritte bei der Subsumtion.',
+'Bei Schritt 2 definiere ich, statt den Gesetzestext abzuschreiben.',
+'Ich verwende konsequent den Konjunktiv im Gutachten.',
+'Ich kann in einem Fall Problemschwerpunkte erkennen.',
+'Das Lesen und Verstehen von Rechtsnormen fällt mir leicht.',
+'Ich bin mir in der Zitierweise von Rechtsnormen sicher.',
+'Ich kann in Rechtsnormen Tatbestand und Rechtsfolge erkennen und unterscheiden.',
+'Ich kann erklären, woran eine Anspruchsgrundlage zu erkennen ist.',
+'Ich kann die Definitionen von Antrag und Annahme auswendig.',
+'Ich kann die Definition des Zugangs auswendig.',
+'Ich kann erklären, dass verschiedene Elemente (z. B. Angebote, Bestellungen, Vertragsvorlagen) Anträge sein können.',
+'Ich kenne die Formen der Geschäftsfähigkeit und kann ihre Rechtsfolgen erklären.']};
+
+W['m1-prompts']={type:'prompts',title:'KI-Lernprompts zu LS 1',items:[
+{t:'Sokratischer Tutor: Geschäftsfähigkeit',when:'Wenn §§ 106–110 BGB noch wackeln',p:`Du bist ein sokratischer Tutor für Zivilrecht. Ich bin Auszubildende/r zur/zum Verwaltungsfachangestellten (1. Ausbildungsjahr, Niedersachsen, Lernfeld 4).
+Thema: Geschäftsfähigkeit Minderjähriger (§§ 104–113 BGB), insbesondere § 107 (lediglich rechtlicher Vorteil), § 108 (schwebende Unwirksamkeit, Genehmigung), § 110 (Taschengeldparagraf), §§ 182–184 (Einwilligung/Genehmigung).
+Erkläre mir nichts vorab. Stelle mir stattdessen nacheinander Fragen und kurze Fälle, mit denen ich mir die Regeln selbst erarbeite. Gib mir Hinweise, wenn ich falsch liege, aber verrate die Lösung erst nach meinem zweiten Versuch. Beginne mit einer leichten Frage.`},
+{t:'Neuer Übungsfall im Stil von LS 1',when:'Zum Üben nach dem Fall „Theater mit dem Vater“',p:`Erstelle mir einen neuen, kurzen Übungsfall aus einer Kommunalverwaltung in Niedersachsen (z. B. Vermietung eines Gemeindesaals, Verkauf eines ausgemusterten Dienstgegenstands).
+Der Fall soll folgende Prüfungspunkte enthalten: Antrag (§ 145 BGB), Zugang (§ 130 BGB), Annahme (§§ 146–150 BGB) und ein Problem mit der beschränkten Geschäftsfähigkeit eines Minderjährigen (§§ 106–110 BGB).
+Gib mir zuerst NUR den Sachverhalt als Aktenvermerk. Wenn ich meine Lösungsskizze schicke, vergleiche sie mit deiner Musterlösung und gib mir Feedback zu Struktur, Normen und Ergebnis.`},
+{t:'Gutachten-Feedback mit Checkliste',when:'Nachdem du Etappe 1–3 geschrieben hast',p:`Du bist Lehrkraft für Zivilrecht an einer Berufsschule. Bewerte mein Gutachten zum folgenden Fall anhand dieser Kriterien:
+1) Obersatz mit allen W-Fragen (Wer? Will was? Von wem? Warum? Woraus?)
+2) 4-Schritt-Methode bei jedem Tatbestandsmerkmal (TBM mit Sachverhaltsbezug – Definition – Subsumtion – Conclusio)
+3) keine abgeschriebenen Gesetzestexte bei der Definition
+4) Konjunktiv/Gutachtenstil
+5) Problemschwerpunkt (Geschäftsfähigkeit) ausführlich, Unproblematisches kurz
+6) exakte Zitierweise der Normen.
+Gib zu jedem Kriterium „erfüllt / vage / fehlt“ und einen konkreten Verbesserungstipp mit Textbeispiel aus meinem Gutachten. Schreibe mein Gutachten nicht komplett neu.
+
+Sachverhalt: Max (17) unterschreibt am 24.11. einen vom Schulleiter bereits unterschriebenen Mietvertrag über die Schulaula (Miete 150 €, Haftung für Schäden). Am 10.11. hatte er sich nur nach der Mietmöglichkeit erkundigt. Am 01.12. erklärt sein Vater gegenüber der Schulsekretärin, er sei nicht einverstanden und die Unterschrift sei ungültig.
+Mein Gutachten: [hier einfügen]`},
+{t:'Erklär mir das wie einer Freundin',when:'Für den schnellen Überblick vor einer Klausur',p:`Erkläre mir in einfacher Sprache und mit Beispielen aus dem Alltag einer Stadtverwaltung:
+- den Unterschied zwischen Antrag und invitatio ad offerendum,
+- die Annahmefristen (§§ 147, 148 BGB) und die Sonderfälle §§ 149, 150 BGB,
+- wann eine Willenserklärung zugeht (§ 130 BGB).
+Fasse alles am Ende in einer kurzen Merkliste (max. 10 Punkte) zusammen und stelle mir dann 3 Kontrollfragen.`},
+{t:'Fristen-Training',when:'Wenn du Fristberechnung üben willst',p:`Gib mir nacheinander 5 Aufgaben zur Fristberechnung nach §§ 187, 188, 193 BGB (Tages-, Wochen- und Monatsfristen, auch Monatsende und Wochenende). Nenne jeweils den Ereignistag mit Wochentag. Ich berechne Fristbeginn und Fristende mit Normangabe. Prüfe meine Lösung und erkläre Fehler Schritt für Schritt, bevor du die nächste Aufgabe stellst. Feiertage bitte vermeiden.`}]};
+
+GOALS.m1=[
+{id:'g1-1',t:'den Sachverhalt in eigenen Worten wiedergeben, chronologisch ordnen und das Problem benennen.',link:'m1-s1'},
+{id:'g1-2',t:'die Merkmale einer Willenserklärung nennen und prüfen, ob eine WE vorliegt.',link:'m1-s2'},
+{id:'g1-3',t:'Abgabe und Zugang unterscheiden und die Zugangsdefinition auf Fälle anwenden.',link:'m1-s3'},
+{id:'g1-4',t:'einen Antrag definieren und von der invitatio ad offerendum abgrenzen.',link:'m1-s4'},
+{id:'g1-5',t:'die Annahme und die Annahmefristen (§§ 147, 148 BGB) sowie die Sonderfälle §§ 146, 149, 150 BGB anwenden.',link:'m1-s4'},
+{id:'g1-6',t:'die Formen der Geschäftsfähigkeit und ihre Rechtsfolgen (§§ 104–113 BGB) erklären.',link:'m1-s6'},
+{id:'g1-7',t:'Einwilligung und Genehmigung unterscheiden und § 110 BGB richtig anwenden.',link:'m1-s6'},
+{id:'g1-8',t:'Fristen nach §§ 187, 188, 193 BGB berechnen.',link:'m1-s7'},
+{id:'g1-9',t:'zum Fall „Theater mit dem Vater“ eine Lösungsskizze erstellen.',link:'m1-s8'},
+{id:'g1-10',t:'das Gutachten mit Problemschwerpunkt Geschäftsfähigkeit formulieren und das Ergebnis für die Verwaltung (Vermerk) aufbereiten.',link:'m1-s9'},
+{id:'g1-11',t:'mein Gutachten mit der Checkliste bewerten und meinen Lernstand reflektieren.',link:'m1-s10'}];
+
+const QA='https://quizacademy.io/course/S-CBNDZW';
+W['m1-qa-we']={type:'ext',title:'Willenserklärungen',n:19,url:QA+'/quiz/25986',text:'Teste dein Wissen zu den Merkmalen und Formen von Willenserklärungen.'};
+W['m1-qa-zugang']={type:'ext',title:'Zugang von Willenserklärungen',n:32,url:QA+'/quiz/25999',text:'Viele Fälle zu Abgabe und Zugang – ideal, um die Zugangsdefinition zu festigen.'};
+W['m1-qa-aa']={type:'ext',title:'Antrag und Annahme',n:19,url:QA+'/quiz/46378',text:'Antrag, invitatio ad offerendum, Annahmefristen und Sonderfälle.'};
+W['m1-qa-kv']={type:'ext',title:'Zustandekommen von Kaufverträgen',n:24,url:QA+'/quiz/46379',text:'Alles zusammen: Wann ist ein Kaufvertrag zustande gekommen?'};
+W['m1-qa-quick']={type:'ext',title:'Quick-Exam (10 Zufallsfragen)',n:10,url:QA+'/quick-exam',text:'Zehn zufällige Fragen aus dem ganzen Kurs. Hinweis: Es können auch Fragen zu Stellvertretung und Anfechtung dabei sein – diese Themen folgen erst in LS 2. Überspringe sie gern oder nimm sie als Vorschau.'};
+/* für LS 2 vorgemerkt: Stellvertretung QA+'/quiz/46380', Anfechtung QA+'/quiz/46382' */
+/* ---------- Modulliste (Freigabe durch Lehrkraft) ---------- */
+const MODULES=[M0,M1,
+{id:'m2',short:'LS 2 · Lena muss schweigen',title:'Lernsituation 2 · „Lena muss schweigen“',released:false,teaser:'Stellvertretung und Anfechtung von Willenserklärungen'},
+{id:'m3',short:'LS 3 · Autokauf',title:'Lernsituation 3 · „Autokauf“',released:false,teaser:'Folgt nach Freigabe'},
+{id:'m4',short:'LS 4 · Drucker',title:'Lernsituation 4 · „Drucker“',released:false,teaser:'Folgt nach Freigabe'}];
+
+/* ================= ENGINE ================= */
+const KEY='lw-zivil-lf4-v1';
+let S={read:{},quiz:{},sort:{},cl:{},wr:{},goals:{},ext:{},name:''};
+try{const r=localStorage.getItem(KEY);if(r)S=Object.assign(S,JSON.parse(r));}catch(e){}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(S));}catch(e){}}
+function toast(t){const el=document.getElementById('toast');el.textContent=t;el.classList.add('show');clearTimeout(toast._t);toast._t=setTimeout(()=>el.classList.remove('show'),2200);}
+function esc(s){return String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));}
+const TRACK=['quiz','sort','check','write','ext'];
+function widgetsIn(sec){const ids=[];(sec.html||'').replace(/data-w="([^"]+)"/g,(m,id)=>{ids.push(id)});return ids;}
+function wDone(id){const w=W[id];if(!w)return 0;
+  if(w.type==='quiz'){const b=(S.quiz[id]||{}).best||0;return b>=0.7?1:b;}
+  if(w.type==='sort'){const b=(S.sort[id]||{}).best||0;return b>=0.8?1:b;}
+  if(w.type==='check'){const c=S.cl[id]||{};return Object.keys(c).length/w.items.length;}
+  if(w.type==='write'){return ((S.wr[id]||'').trim().length>=80)?1:0;}
+  if(w.type==='ext'){const e=(S.ext||{})[id];return e&&e.done?1:0;}
+  return 0;}
+function modProgress(m){if(!m.released)return null;let tot=0,sum=0;
+  m.sections.forEach(s=>{tot++;sum+=S.read[s.id]?1:0;widgetsIn(s).forEach(id=>{if(W[id]&&TRACK.includes(W[id].type)){tot++;sum+=wDone(id);}});});
+  return tot?sum/tot:0;}
+function allQuizzes(){const out=[];MODULES.forEach(m=>{if(!m.released)return;m.sections.forEach(s=>widgetsIn(s).forEach(id=>{const w=W[id];if(w&&(w.type==='quiz'||w.type==='sort'||w.type==='ext'))out.push({m,s,id,w});}));});return out;}
+
+/* ---------- navigation ---------- */
+function renderNav(cur){
+  let h='<div class="navgroup">Übersicht</div>';
+  h+=`<div class="navmod ${cur==='start'?'active':''}"><button onclick="go('start')">📊 <span>Mein Lern-Dashboard</span></button></div>`;
+  h+=`<div class="navmod ${cur==='ziele'?'active':''}"><button onclick="go('ziele')">🎯 <span>Lernziele &amp; Selbsteinschätzung</span></button></div>`;
+  h+='<div class="navgroup">Lernmodule</div>';
+  MODULES.forEach(m=>{
+    const isCur=m.sections&&m.sections.some(s=>s.id===cur);
+    if(!m.released){h+=`<div class="navmod locked"><button title="Wird von deiner Lehrkraft freigeschaltet">🔒 <span>${m.short}</span></button></div>`;return;}
+    const p=Math.round(modProgress(m)*100);
+    h+=`<div class="navmod ${isCur?'open active':''}"><button onclick="toggleMod(this,'${m.sections[0].id}')">${m.icon} <span>${m.short}</span><span class="pct">${p}%</span></button><div class="navsub">`;
+    m.sections.forEach(s=>{h+=`<button class="navlink ${s.id===cur?'cur':''} ${S.read[s.id]?'done':''}" onclick="go('${s.id}')"><span class="dot"></span>${s.title}</button>`;});
+    h+='</div></div>';
+  });
+  document.getElementById('nav').innerHTML=h;
+}
+function toggleMod(btn,first){const el=btn.parentElement;if(el.classList.contains('open')){el.classList.remove('open');}else{go(first);}}
+function go(id){location.hash=id;}
+function findSec(id){for(const m of MODULES){if(!m.released)continue;const i=m.sections.findIndex(s=>s.id===id);if(i>=0)return{m,i,s:m.sections[i]};}return null;}
+function route(){
+  const id=(location.hash||'#start').slice(1)||'start';
+  document.getElementById('side').classList.remove('open');
+  const c=document.getElementById('content');
+  if(id==='start'){c.innerHTML=renderDashboard();renderNav('start');}
+  else if(id==='ziele'){c.innerHTML=renderGoals();renderNav('ziele');}
+  else{const f=findSec(id);if(!f){location.hash='start';return;}
+    const {m,i,s}=f;const prev=m.sections[i-1],next=m.sections[i+1];
+    c.innerHTML=`<div class="crumb">${m.title} · Abschnitt ${i+1} von ${m.sections.length}</div><h1>${s.title}</h1>${s.html}
+    <div class="readbar ${S.read[s.id]?'done':''}" id="rb"><div><b>${S.read[s.id]?'✓ Abschnitt erledigt':'Fertig mit diesem Abschnitt?'}</b><div class="mini">Markiere den Abschnitt, wenn du ihn durchgearbeitet hast – das zählt für dein Dashboard.</div></div>
+    <button class="btn ${S.read[s.id]?'sec':'teal'}" onclick="markRead('${s.id}')">${S.read[s.id]?'Markierung entfernen':'Als erledigt markieren'}</button></div>
+    <div class="pager">${prev?`<button class="btn sec" onclick="go('${prev.id}')">← ${prev.title}</button>`:'<span></span>'}${next?`<button class="btn" onclick="go('${next.id}')">${next.title} →</button>`:`<button class="btn" onclick="go('start')">Zum Dashboard →</button>`}</div>`;
+    renderNav(id);}
+  c.querySelectorAll('[data-w]').forEach(el=>mountWidget(el,el.dataset.w));
+  window.scrollTo(0,0);
+}
+function markRead(id){S.read[id]=!S.read[id];save();const y=window.scrollY;route();window.scrollTo(0,y);if(S.read[id])toast('Abschnitt als erledigt gespeichert ✓');}
+window.addEventListener('hashchange',route);
+
+/* ---------- widgets ---------- */
+const ICON={quiz:['?','#2563eb','Selbsttest'],sort:['⇄','#0d8a80','Zuordnungsübung'],check:['✓','#1f9d5c','Checkliste'],prompts:['✦','#7c4dbe','KI-Lernprompts'],write:['✎','#c27803','Schreibwerkstatt'],frist:['📅','#0f4f6a','Fristenrechner'],ext:['QA','#e4572e','Lernkontrolle QuizAcademy'],flips:['↻','#0f4f6a','Lernkarten']};
+function shell(w,body,meta){const ic=ICON[w.type];return `<div class="wcard"><div class="whead"><div class="ic" style="background:${ic[1]}">${ic[0]}</div><div><div class="mini" style="font-weight:700;text-transform:uppercase;letter-spacing:.05em">${ic[2]}</div><h4>${w.title||''}</h4></div><div class="meta">${meta||''}</div></div><div class="wbody">${body}</div></div>`;}
+function mountWidget(el,id){const w=W[id];if(!w){el.innerHTML='';return;}
+  ({quiz:mQuiz,sort:mSort,check:mCheck,prompts:mPrompts,write:mWrite,frist:mFrist,flips:mFlips,ext:mExt})[w.type](el,id,w);}
+function mQuiz(el,id,w){const b=(S.quiz[id]||{}).best;
+  let h=w.intro?`<p>${w.intro}</p>`:'';
+  w.qs.forEach((q,i)=>{h+=`<div class="q" id="${id}-q${i}"><div class="qt"><span class="qn">${i+1}.</span>${q.q}</div>`;
+    const ord=q.o.map((_,j)=>j).sort(()=>Math.random()-.5);
+    ord.forEach(j=>{h+=`<label class="opt" data-j="${j}"><input type="radio" name="${id}-${i}" value="${j}"><span>${q.o[j]}</span></label>`;});
+    h+=`<div class="expl">${q.e}</div></div>`;});
+  h+=`<div class="btnrow"><button class="btn" onclick="checkQuiz('${id}')">Auswerten</button><button class="btn sec" onclick="resetQuiz('${id}')">Neu starten</button><span id="${id}-res"></span></div>`;
+  el.innerHTML=shell(w,h,`${w.qs.length} Fragen${b!=null?` · Bestwert ${Math.round(b*100)} %`:''}`);}
+function checkQuiz(id){const w=W[id];let r=0,ans=0;
+  w.qs.forEach((q,i)=>{const box=document.getElementById(`${id}-q${i}`);const sel=box.querySelector('input:checked');box.classList.add('checked');
+    box.querySelectorAll('.opt').forEach(o=>{const j=+o.dataset.j;o.classList.remove('right','wrong');if(j===q.a)o.classList.add('right');else if(sel&&+sel.value===j)o.classList.add('wrong');});
+    if(sel){ans++;if(+sel.value===q.a)r++;}});
+  const p=r/w.qs.length;const st=S.quiz[id]||{};st.last=p;st.best=Math.max(st.best||0,p);st.tries=(st.tries||0)+1;S.quiz[id]=st;save();
+  const cls=p>=.8?'good':p>=.5?'mid':'bad';
+  document.getElementById(`${id}-res`).innerHTML=`<span class="result ${cls}">${r} von ${w.qs.length} richtig (${Math.round(p*100)} %)${ans<w.qs.length?' – nicht alles beantwortet':''}${p>=.7?' · geschafft ✓':' · ab 70 % zählt der Test als bestanden'}</span>`;
+  renderNav((location.hash||'').slice(1));}
+function resetQuiz(id){const el=document.querySelector(`[data-w="${id}"]`);mountWidget(el,id);}
+function mSort(el,id,w){const b=(S.sort[id]||{}).best;
+  let h=w.intro?`<p>${w.intro}</p>`:'';
+  w.items.forEach((it,i)=>{h+=`<div class="srow" id="${id}-r${i}"><div>${it.t}</div><select><option value="">– bitte wählen –</option>${w.cats.map((c,j)=>`<option value="${j}">${c}</option>`).join('')}</select><div class="fb">${it.fb||''}</div></div>`;});
+  h+=`<div class="btnrow"><button class="btn" onclick="checkSort('${id}')">Prüfen</button><button class="btn sec" onclick="resetQuiz('${id}')">Zurücksetzen</button><span id="${id}-res"></span></div>`;
+  el.innerHTML=shell(w,h,`${w.items.length} Aufgaben${b!=null?` · Bestwert ${Math.round(b*100)} %`:''}`);}
+function checkSort(id){const w=W[id];let r=0;
+  w.items.forEach((it,i)=>{const row=document.getElementById(`${id}-r${i}`);const v=row.querySelector('select').value;row.classList.remove('right','wrong');
+    if(v!==''){if(+v===it.c){row.classList.add('right');r++;}else{row.classList.add('wrong');}}
+    if(v!==''&&+v!==it.c&&!it.fb){row.querySelector('.fb').textContent='Richtig wäre: '+w.cats[it.c];}});
+  const p=r/w.items.length;const st=S.sort[id]||{};st.best=Math.max(st.best||0,p);S.sort[id]=st;save();
+  const cls=p>=.8?'good':p>=.5?'mid':'bad';
+  document.getElementById(`${id}-res`).innerHTML=`<span class="result ${cls}">${r} von ${w.items.length} richtig</span>`;
+  renderNav((location.hash||'').slice(1));}
+function mCheck(el,id,w){const c=S.cl[id]||{};
+  let h=(w.intro?`<p>${w.intro}</p>`:'')+'<table class="cl">';
+  w.items.forEach((it,i)=>{const v=c[i];h+=`<tr><td>${it}</td><td style="width:220px"><div class="tri">${[['v1','erfüllt'],['v2','vage'],['v3','fehlt']].map((x,k)=>`<button class="${x[0]} ${v===k+1?'on':''}" onclick="setCl('${id}',${i},${k+1},this)">${x[1]}</button>`).join('')}</div></td></tr>`;});
+  h+='</table>';
+  const n=Object.keys(c).length;
+  el.innerHTML=shell(w,h,`${n}/${w.items.length} eingeschätzt`);}
+function setCl(id,i,v,btn){S.cl[id]=S.cl[id]||{};S.cl[id][i]=v;save();btn.parentElement.querySelectorAll('button').forEach(b=>b.classList.remove('on'));btn.classList.add('on');
+  const w=W[id];btn.closest('.wcard').querySelector('.meta').textContent=`${Object.keys(S.cl[id]).length}/${w.items.length} eingeschätzt`;renderNav((location.hash||'').slice(1));}
+function mPrompts(el,id,w){let h=`<div class="box achtung" style="margin-top:0"><span class="bt">Datenschutz</span>Gib in KI-Tools keine echten Namen, Aktenzeichen oder personenbezogenen Daten aus deiner Ausbildungsbehörde ein. Nutze die von der Schule freigegebenen Tools. Prüfe KI-Antworten immer am Gesetzestext – KI kann sich irren!</div>`;
+  w.items.forEach((p,i)=>{h+=`<div class="prompt"><div class="ph"><span>✦</span><div><b>${p.t}</b><div class="mini">${p.when}</div></div><button class="btn sm teal" onclick="copyPrompt('${id}',${i},this)">Kopieren</button></div><pre id="${id}-p${i}">${esc(p.p)}</pre></div>`;});
+  el.innerHTML=shell(w,h,`${w.items.length} Prompts`);}
+function copyPrompt(id,i,btn){const t=W[id].items[i].p;const done=()=>{btn.textContent='Kopiert ✓';setTimeout(()=>btn.textContent='Kopieren',1800);};
+  try{navigator.clipboard.writeText(t).then(done,()=>fallbackCopy(id,i,done));}catch(e){fallbackCopy(id,i,done);}}
+function fallbackCopy(id,i,done){const pre=document.getElementById(`${id}-p${i}`);const r=document.createRange();r.selectNodeContents(pre);const s=getSelection();s.removeAllRanges();s.addRange(r);try{document.execCommand('copy');done();}catch(e){toast('Text markiert – mit Strg+C kopieren');}}
+function mWrite(el,id,w){const t=S.wr[id]||'';
+  let h=`<div>${w.task}</div>${w.hint?`<details class="box info hint"><summary><span class="bt" style="display:inline">💡 Tipp<span class="sh"> anzeigen</span></span> <span class="mini">(nur wenn du nicht weiterkommst)</span></summary><div style="margin-top:6px">${w.hint}</div></details>`:''}<textarea class="wr" id="${id}-ta" placeholder="Schreibe hier deine Lösung … (wird automatisch gespeichert)" oninput="saveWr('${id}',this.value)">${esc(t)}</textarea>
+  <div class="btnrow"><button class="btn teal" onclick="document.getElementById('${id}-sol').classList.toggle('show')">Musterlösung ein-/ausblenden</button><span class="mini" id="${id}-cnt">${t.trim().length} Zeichen</span></div>
+  <div class="sol" id="${id}-sol"><div class="box merke" style="margin-bottom:8px"><span class="bt">Erst selbst schreiben, dann vergleichen!</span>${w.cmp||'Vergleiche Schritt für Schritt: Hast du alle vier Schritte? Stimmt der Bezug zum Sachverhalt?'}</div>${w.sol}</div>`;
+  el.innerHTML=shell(w,h,t.trim().length>=80?'bearbeitet ✓':'');}
+function saveWr(id,v){S.wr[id]=v;save();const c=document.getElementById(id+'-cnt');if(c)c.textContent=v.trim().length+' Zeichen';clearTimeout(saveWr._t);saveWr._t=setTimeout(()=>renderNav((location.hash||'').slice(1)),600);}
+function mFlips(el,id,w){let h='<p class="mini">Klicke auf eine Karte, um sie umzudrehen.</p><div class="grid3">';
+  w.items.forEach(it=>{h+=`<div class="flip" onclick="this.classList.toggle('on')"><div class="in"><div class="fa"><b>${it.f}</b><small>${it.s||'Antwort zeigen ↻'}</small></div><div class="fb2">${it.b}</div></div></div>`;});
+  el.innerHTML=shell(w,h+'</div>',`${w.items.length} Karten`);}
+function mExt(el,id,w){S.ext=S.ext||{};const e=S.ext[id]||{};
+  const h=`<div class="grid2" style="align-items:center"><div><p style="margin-top:0">${w.text}</p><p class="mini">${w.n} Fragen · öffnet sich in einem neuen Fenster bei QuizAcademy (auch als App nutzbar).</p></div>
+  <div style="text-align:right"><a class="btn teal" style="display:inline-block;text-decoration:none" href="${w.url}" target="_blank" rel="noopener">Lernkontrolle starten ↗</a></div></div>
+  <div class="btnrow" style="border-top:1px dashed var(--line);padding-top:10px"><label style="display:flex;gap:8px;align-items:center;font-weight:600"><input type="checkbox" ${e.done?'checked':''} onchange="setExt('${id}','done',this.checked)"> Ich habe die Lernkontrolle bearbeitet</label>
+  <label class="mini" style="margin-left:auto">Mein Ergebnis in %: <input type="number" min="0" max="100" value="${e.pct!=null?e.pct:''}" style="width:70px;font:inherit;padding:4px 6px;border-radius:8px;border:1.5px solid var(--line)" onchange="setExt('${id}','pct',this.value===''?null:Math.max(0,Math.min(100,+this.value)))"></label></div>`;
+  el.innerHTML=shell(w,h,e.done?'bearbeitet ✓':'');}
+function setExt(id,k,v){S.ext=S.ext||{};S.ext[id]=S.ext[id]||{};S.ext[id][k]=v;if(k==='pct'&&v!=null)S.ext[id].done=true;save();
+  const el=document.querySelector(`[data-w="${id}"]`);if(el)mountWidget(el,id);renderNav((location.hash||'').slice(1));}
+/* Fristenrechner nach §§ 187, 188, 193 BGB (ohne Feiertage) */
+function mFrist(el,id,w){const today=new Date().toISOString().slice(0,10);
+  const h=`<p>${w.intro||''}</p><div class="calc"><div><label>Ereignistag (z. B. Zugang)</label><input type="date" id="fr-d" value="${today}"></div>
+  <div><label>Fristlänge</label><input type="number" id="fr-n" value="2" min="1" max="60"></div>
+  <div><label>Einheit</label><select id="fr-u"><option value="d">Tage</option><option value="w" selected>Wochen</option><option value="m">Monate</option></select></div></div>
+  <div class="btnrow"><button class="btn" onclick="calcFrist()">Frist berechnen</button></div><div class="calcout" id="fr-out">Wähle Ereignistag und Fristlänge.</div>`;
+  el.innerHTML=shell(w,h,'');}
+const WT=['Sonntag','Montag','Dienstag','Mittwoch','Donnerstag','Freitag','Samstag'];
+function fmt(d){return WT[d.getDay()]+', '+String(d.getDate()).padStart(2,'0')+'.'+String(d.getMonth()+1).padStart(2,'0')+'.'+d.getFullYear();}
+function calcFrist(){const v=document.getElementById('fr-d').value;if(!v)return;const [y,mo,da]=v.split('-').map(Number);const ev=new Date(y,mo-1,da);
+  const n=+document.getElementById('fr-n').value;const u=document.getElementById('fr-u').value;let end;let rule='';
+  const start=new Date(y,mo-1,da+1);
+  if(u==='d'){end=new Date(y,mo-1,da+n);rule='§ 188 I BGB: Eine nach Tagen bestimmte Frist endet mit dem Ablauf des letzten Tages der Frist.';}
+  else if(u==='w'){end=new Date(y,mo-1,da+7*n);rule='§ 188 II Alt. 1 BGB: Die Frist endet mit Ablauf des Tages der letzten Woche, der durch seine Benennung (Wochentag) dem Ereignistag entspricht.';}
+  else{let tm=mo-1+n;let ty=y+Math.floor(tm/12);tm=tm%12;const last=new Date(ty,tm+1,0).getDate();end=new Date(ty,tm,Math.min(da,last));
+    rule='§ 188 II Alt. 1 BGB: Die Frist endet mit Ablauf des Tages des letzten Monats, der durch seine Zahl dem Ereignistag entspricht.'+(da>last?' Diesen Tag gibt es im Endmonat nicht → § 188 III BGB: Fristende ist der letzte Tag des Monats.':'');}
+  let fin=new Date(end);let note='';
+  while(fin.getDay()===0||fin.getDay()===6){fin.setDate(fin.getDate()+1);}
+  if(fin.getTime()!==end.getTime())note=`<li><b>§ 193 BGB:</b> Das rechnerische Fristende (${fmt(end)}) fällt auf ein Wochenende → die Frist endet erst am nächsten Werktag.</li>`;
+  document.getElementById('fr-out').innerHTML=`<ol style="margin:0;padding-left:20px">
+  <li><b>Ereignistag:</b> ${fmt(ev)} – wird nach <b>§ 187 I BGB</b> nicht mitgezählt.</li>
+  <li><b>Fristbeginn:</b> ${fmt(start)} (0:00 Uhr)</li>
+  <li><b>Fristende:</b> ${rule} → rechnerisch <b>${fmt(end)}</b>, 24:00 Uhr.</li>${note}
+  <li><b>Ergebnis:</b> Die Frist endet mit Ablauf von <b>${fmt(fin)}</b>.</li></ol>
+  <p class="mini" style="margin-bottom:0">Hinweis: Gesetzliche Feiertage (§ 193 BGB) berücksichtigt der Rechner nicht – prüfe sie selbst im Kalender für Niedersachsen.</p>`;}
+
+/* ---------- dashboard ---------- */
+function ring(p){const r=34,c=2*Math.PI*r;return `<svg class="ring" viewBox="0 0 84 84"><circle cx="42" cy="42" r="${r}" fill="none" stroke="#e6eef3" stroke-width="9"/><circle cx="42" cy="42" r="${r}" fill="none" stroke="url(#gr)" stroke-width="9" stroke-linecap="round" stroke-dasharray="${c*p} ${c}" transform="rotate(-90 42 42)"/><defs><linearGradient id="gr"><stop offset="0" stop-color="#0d8a80"/><stop offset="1" stop-color="#1f9d5c"/></linearGradient></defs><text x="42" y="48" text-anchor="middle" font-family="Fraunces,serif" font-size="18" fill="#0f2f4a">${Math.round(p*100)}%</text></svg>`;}
+function bestPct(x){if(x.w.type==='ext'){const e=(S.ext||{})[x.id];return e&&e.pct!=null?e.pct:(e&&e.done?100:null);}
+  const b=x.w.type==='quiz'?(S.quiz[x.id]||{}).best:(S.sort[x.id]||{}).best;return b!=null?Math.round(b*100):null;}
+function nextStep(){for(const m of MODULES){if(!m.released)continue;for(const s of m.sections){if(!S.read[s.id])return {m,s};}}return null;}
+function renderDashboard(){
+  const rel=MODULES.filter(m=>m.released);
+  const secTot=rel.reduce((a,m)=>a+m.sections.length,0),secDone=rel.reduce((a,m)=>a+m.sections.filter(s=>S.read[s.id]).length,0);
+  const qs=allQuizzes();const qPassed=qs.filter(x=>wDone(x.id)>=1).length;
+  const gAll=Object.values(GOALS).flat();const gGreen=gAll.filter(g=>S.goals[g.id]===3).length;
+  const overall=rel.length?rel.reduce((a,m)=>a+modProgress(m),0)/rel.length:0;
+  const ns=nextStep();
+  let h=`<div class="hero"><svg class="hept" width="260" height="260" viewBox="0 0 100 100"><polygon points="50,4 86,21 95,60 70,92 30,92 5,60 14,21" fill="#fff"/></svg>
+  <div class="crumb" style="color:#9fd8c9">Lernfeld 4 · Verträge zur Güterbeschaffung schließen und erfüllen</div>
+  <h1>Zustandekommen von Verträgen</h1><p>Hier lernst du Schritt für Schritt, wie man zivilrechtliche Fälle aus der Verwaltungspraxis löst – mit Lösungsskizze und juristischem Gutachten. Neue Lernsituationen werden von deiner Lehrkraft nach und nach freigeschaltet.</p>
+  ${ns?`<button class="btn teal" onclick="go('${ns.s.id}')">${secDone?'Weiterlernen':'Jetzt starten'}: ${ns.s.title} →</button>`:`<span class="tag pill-ok">Alle freigeschalteten Abschnitte erledigt 🎉</span>`}</div>
+  <div class="kpis"><div class="kpi"><div class="v">${Math.round(overall*100)} %</div><div class="l">Gesamtfortschritt (freigeschaltete Module)</div></div>
+  <div class="kpi"><div class="v">${secDone}/${secTot}</div><div class="l">Abschnitte erledigt</div></div>
+  <div class="kpi"><div class="v">${qPassed}/${qs.length}</div><div class="l">Tests, Übungen &amp; Lernkontrollen erledigt</div></div>
+  <div class="kpi"><div class="v">${gGreen}/${gAll.length}</div><div class="l">Lernziele „sicher“ 🟢</div></div></div>
+  <h2>Meine Module</h2>`;
+  MODULES.forEach(m=>{
+    if(!m.released){h+=`<div class="card modcard locked-card"><div style="font-size:2rem;text-align:center">🔒</div><div><b>${m.title}</b><div class="mini">${m.teaser||''}</div></div><span class="tag">folgt nach Freigabe</span></div>`;return;}
+    const p=modProgress(m);const sd=m.sections.filter(s=>S.read[s.id]).length;
+    const mq=qs.filter(x=>x.m===m);
+    h+=`<div class="card modcard">${ring(p)}<div><b style="font-size:1.08rem">${m.icon} ${m.title}</b><div class="mini">${m.teaser||''}</div>
+    <div class="mini" style="margin-top:6px">Abschnitte: ${sd}/${m.sections.length} · Tests/Übungen bestanden: ${mq.filter(x=>wDone(x.id)>=1).length}/${mq.length}</div></div>
+    <button class="btn sec" onclick="go('${(m.sections.find(s=>!S.read[s.id])||m.sections[0]).id}')">Öffnen →</button></div>`;});
+  h+=`<h2>Ergebnisse der Selbsttests</h2><div class="card"><table class="t"><tr><th>Modul</th><th>Test / Übung</th><th style="width:220px">Bestwert</th><th>Status</th></tr>`;
+  qs.forEach(x=>{const pc=bestPct(x);
+    h+=`<tr><td class="mini">${x.m.short}</td><td><a href="#${x.s.id}">${x.w.title}</a>${x.w.type==='ext'?' <span class="tag">QuizAcademy</span>':''}</td><td>${pc!=null?`<div class="bar"><i style="width:${pc}%"></i></div><span class="mini">${pc} %</span>`:'<span class="mini">noch nicht bearbeitet</span>'}</td><td>${x.w.type==='ext'?(wDone(x.id)?'<span class="tag pill-ok">bearbeitet</span>':'<span class="tag">offen</span>'):pc==null?'<span class="tag">offen</span>':wDone(x.id)>=1?'<span class="tag pill-ok">bestanden</span>':'<span class="tag pill-no">wiederholen</span>'}</td></tr>`;});
+  h+=`</table></div>`;
+  // weak spots
+  const weak=gAll.filter(g=>S.goals[g.id]===1);
+  h+=`<h2>Daran solltest du arbeiten</h2><div class="card">${weak.length?'<ul>'+weak.map(g=>`<li>${g.t} <a href="#${g.link}">→ zum Abschnitt</a></li>`).join('')+'</ul>':'<p class="mini" style="margin:0">Schätze unter <a href="#ziele">Lernziele &amp; Selbsteinschätzung</a> ein, wie sicher du dich fühlst. Alles, was du mit 🔴 markierst, erscheint hier als To-do.</p>'}</div>`;
+  h+=`<h2>Fortschritt sichern &amp; teilen</h2><div class="card"><p>Dein Fortschritt liegt nur in diesem Browser. Du kannst eine Zusammenfassung kopieren und z. B. in dein Lerntagebuch einfügen oder deiner Lehrkraft schicken.</p>
+  <div class="btnrow"><button class="btn teal" onclick="copySummary(this)">Zusammenfassung kopieren</button><button class="btn sec" onclick="resetAll()">Alles zurücksetzen</button></div><pre id="sumpre" style="display:none"></pre></div>`;
+  return h;}
+function summaryText(){let t='Lernwerkstatt Zivilrecht – LF 4 – Stand '+new Date().toLocaleDateString('de-DE')+'\n';
+  MODULES.filter(m=>m.released).forEach(m=>{t+=`\n${m.title}: ${Math.round(modProgress(m)*100)} %\n`;
+    m.sections.forEach(s=>{t+=`  [${S.read[s.id]?'x':' '}] ${s.title}\n`;});});
+  t+='\nSelbsttests:\n';allQuizzes().forEach(x=>{const pc=bestPct(x);t+=`  - ${x.w.title}: ${pc!=null?pc+' %':(wDone(x.id)?'bearbeitet':'offen')}\n`;});
+  t+='\nLernziele (1=unsicher, 2=teils, 3=sicher):\n';Object.values(GOALS).flat().forEach(g=>{t+=`  ${S.goals[g.id]||'-'}  ${g.t.replace(/<[^>]+>/g,'')}\n`;});return t;}
+function copySummary(btn){const t=summaryText();const pre=document.getElementById('sumpre');pre.textContent=t;
+  try{navigator.clipboard.writeText(t).then(()=>{btn.textContent='Kopiert ✓';},()=>{pre.style.display='block';toast('Bitte Text markieren und kopieren');});}catch(e){pre.style.display='block';}}
+let resetArm=0;
+function resetAll(){if(Date.now()-resetArm>4000){resetArm=Date.now();toast('Wirklich alles löschen? Zum Bestätigen innerhalb von 4 Sek. erneut klicken.');return;}
+  S={read:{},quiz:{},sort:{},cl:{},wr:{},goals:{},ext:{},name:''};save();route();toast('Fortschritt zurückgesetzt');}
+/* ---------- goals ---------- */
+function renderGoals(){let h=`<div class="crumb">Übersicht</div><h1>Lernziele &amp; Selbsteinschätzung</h1><p class="lead">Schätze nach jedem Modul ehrlich ein, wie sicher du bist: 🔴 noch unsicher · 🟡 teilweise · 🟢 sicher. Deine 🔴-Ziele erscheinen im Dashboard als To-do.</p>`;
+  MODULES.forEach(m=>{if(!m.released||!GOALS[m.id])return;h+=`<h2>${m.icon} ${m.title}</h2><div class="card">`;
+    GOALS[m.id].forEach(g=>{const v=S.goals[g.id];h+=`<div class="goal"><div>Ich kann … ${g.t} <a class="mini" href="#${g.link}">(nachlesen)</a></div><div class="amp">${[['r',1],['y',2],['g',3]].map(([c,k])=>`<button class="${c} ${v===k?'on':''}" title="${['','unsicher','teilweise','sicher'][k]}" onclick="setGoal('${g.id}',${k})"></button>`).join('')}</div></div>`;});
+    h+='</div>';});
+  return h;}
+function setGoal(id,v){S.goals[id]=v;save();const y=scrollY;route();scrollTo(0,y);}
+route();
+</script>
+</body>
+</html>
